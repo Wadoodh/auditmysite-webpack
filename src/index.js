@@ -1,2 +1,1 @@
-const form = document.querySelector("#form");
-form.style.backgroundColor = "green";
+document.querySelector("h1").textContent = "after running dev server";
