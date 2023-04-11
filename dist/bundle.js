@@ -15,17 +15,17 @@
   \**********************/
 /***/ (() => {
 
-eval("document.querySelector(\"h1\").textContent = \"after running dev server\";\n\n//# sourceURL=webpack://auditmysite-webpack/./src/index.js?");
+eval("\n\n//# sourceURL=webpack://auditmysite-webpack/./src/index.js?");
 
 /***/ }),
 
-/***/ "./src/sandbox.js":
-/*!************************!*\
-  !*** ./src/sandbox.js ***!
-  \************************/
+/***/ "./src/psi/index.js":
+/*!**************************!*\
+  !*** ./src/psi/index.js ***!
+  \**************************/
 /***/ (() => {
 
-eval("document.body.style.backgroundColor = \"green\";\n\n//# sourceURL=webpack://auditmysite-webpack/./src/sandbox.js?");
+eval("\n\n//# sourceURL=webpack://auditmysite-webpack/./src/psi/index.js?");
 
 /***/ })
 
@@ -37,7 +37,7 @@ eval("document.body.style.backgroundColor = \"green\";\n\n//# sourceURL=webpack:
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
 /******/ 	__webpack_modules__["./src/index.js"]();
 /******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/sandbox.js"]();
+/******/ 	__webpack_modules__["./src/psi/index.js"]();
 /******/ 	
 /******/ })()
 ;

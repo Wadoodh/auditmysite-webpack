@@ -5,11 +5,10 @@ const glob = require("glob");
 module.exports = {
   mode: "development",
   entry: {
-    bundle: glob.sync("./src/*.js"),
+    bundle: glob.sync("./src/index.js"),
     /* bundle: [
-        path.resolve(__dirname, "src/index.js"),
       path.resolve(__dirname, "src/index.js"),
-      path.resolve(__dirname, "src/sandbox.js"),
+      path.resolve(__dirname, "src/psi/"),
     ], */
   },
   output: {
@@ -18,13 +17,6 @@ module.exports = {
     clean: true,
     assetModuleFilename: "[name][ext]",
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: "Development",
-      filename: "index.html",
-      template: "src/template.html",
-    }),
-  ],
   /* devtool: "source-map", */
   devServer: {
     static: {
@@ -58,4 +50,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Development",
+      filename: "index.html",
+      template: "src/template.html",
+    }),
+  ],
 };
