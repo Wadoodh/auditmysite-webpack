@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const glob = require("glob");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
@@ -55,6 +56,9 @@ module.exports = {
       title: "Development",
       filename: "index.html",
       template: "src/template.html",
+    }),
+    new webpack.DefinePlugin({
+      PRODUCTION: JSON.stringify(false),
     }),
   ],
 };
