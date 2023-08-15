@@ -1,6 +1,7 @@
 const fakeSubmitButton = document.querySelector("#fake-submit");
 const websiteInput = document.querySelector("#website");
 const formErrorMsg = document.querySelector("#form-error");
+const isValidDomain = require("is-valid-domain");
 
 // add to Webflow form in case someone uncovers the form submit button and clicks it
 
@@ -80,12 +81,8 @@ function validateForm() {
 
       console.log(data);
       return data;
-    } else {
-      const { data } = await axios.get("http://localhost:8000/data");
-      console.log(data[0]);
-      return data[0];
     }
   }
 }
 
-export default validateForm();
+export default validateForm;
