@@ -1,6 +1,7 @@
 import axios from "axios";
 import validateForm from "./client/index";
 const isValidDomain = require("is-valid-domain");
+const _ = require("lodash");
 
 function inIt() {
   const domain = "www.test.com";
@@ -15,89 +16,6 @@ function inIt() {
     const mobileResults = organizeInitialResult(mobileData[0]);
 
     removeOverlapsAndCombine(desktopResults, mobileResults);
-
-    /* const {
-      lighthouseResult: {
-        audits,
-        categories: { performance },
-      },
-    } = data[0];
-
-    let standardAudits = []; // get all required audits
-    let accumulatedAudits = []; // store audits that have been added to prevent duplicates
-
-    // iterate through all possible audits
-    // get relevant ones for performance that contribute to weight/score
-    // because there are audits that don't carry a weight, these don't have the 'relevantAudits' property
-    // i.e., TBT, LCP, CLS, FCP all carry a weight and contribute to the overall score
-    // screenshot: https://share.cleanshot.com/Wgr2HZ0b
-    performance.auditRefs.forEach((audit) => {
-      if (audit.hasOwnProperty("relevantAudits")) {
-        // create new property to store relevant audits
-        audit.matchedAudits = [];
-        standardAudits.push(audit);
-      }
-    });
-
-    // add category audit belongs to including the name and weight it contributes to the overall score
-    // exclude audits with null score
-    // push each relevant audit to standardAudits
-    standardAudits.forEach((auditCategory) => {
-      auditCategory.relevantAudits.forEach((audit) => {
-        if (audits[audit].score === null) return;
-
-        audits[audit].belongsToAuditCategory = {
-          acronym: auditCategory.acronym,
-          id: auditCategory.id,
-          weight: auditCategory.weight,
-        };
-
-        auditCategory.matchedAudits.push(audits[audit]);
-      });
-    });
-
-    // ascending: low to high
-    // descending: high to low
-    // sort main audit score areas by by heaviest areas i.e., TBT, LCP, CLS, and FCP
-    standardAudits.sort((a, z) => z.weight - a.weight);
-
-    // sort each relevant audit within each of the main areas (TBT, LCP, CLS, FCP) by score, lowest to highest
-    standardAudits.forEach((audit) =>
-      audit.matchedAudits.sort((a, z) => a.score - z.score)
-    ); 
-
-    // performance audits
-    // between desktop and mobile, PSI recommendations have a lot of overlap
-    // this code accounts for the overlap and ensures the audit with the higher score is reported
-    // between the two breakpoints
-    standardAudits.forEach((auditCategory) => {
-      auditCategory.matchedAudits.forEach((audit) => {
-        console.log(audit);
-
-        if (accumulatedAudits.indexOf(audit.id) === -1) {
-          accumulatedAudits.push(audit.id);
-
-          // high 0-49
-          // med 50-89
-          // low 90-100
-
-          if (audit.score >= 0 && audit.score <= 0.49) {
-            // highPriorityAudits.push(audit);
-            // createAudit(audit, audit.details);
-          } else if (audit.score >= 0.5 && audit.score <= 0.89) {
-            // medPriorityAudits.push(audit);
-            // createAudit(audit, audit.details);
-          } else if (audit.score >= 0.9 && audit.score <= 1) {
-            // lowPriorityAudits.push(audit);
-            // createAudit(audit, audit.details);
-          }
-        }
-      });
-    });
-
-    */
-
-    // end of getData
   }
 
   getData();
@@ -159,8 +77,9 @@ function organizeInitialResult(data) {
 
 function removeOverlapsAndCombine(desktop, mobile) {
   const finalAudits = [];
-  const id = "third-party-facades";
+  const objectAudits = {};
 
+  // add relevant desktop audits
   desktop.forEach((outerAudit) => {
     outerAudit.matchedAudits.forEach((innerAudit) => {
       if (innerAudit.score >= 0.9) return;
@@ -168,9 +87,10 @@ function removeOverlapsAndCombine(desktop, mobile) {
     });
   });
 
+  // add missing mobile audits
+  // if audit exists and has a lower score, replace audit
   mobile.forEach((outerAudit) => {
     outerAudit.matchedAudits.forEach((innerAudit) => {
-      // start...
       if (innerAudit.score >= 0.9) return;
 
       const existingAuditIndex = finalAudits.findIndex(
@@ -188,25 +108,35 @@ function removeOverlapsAndCombine(desktop, mobile) {
     });
   });
 
-  // ascending: low to high
-  // descending: high to low
-  // sort main audit score areas by by heaviest areas i.e., TBT, LCP, CLS, and FCP
-  finalAudits.sort(
-    (a, z) => z.belongsToAuditCategory.weight - a.belongsToAuditCategory.weight
-  );
-
-  // sort each relevant audit within each of the main areas (TBT, LCP, CLS, FCP) by score, lowest to highest
-  /* finalAudits.forEach((audit) => {
-    console.log(audit);
-    // audit.matchedAudits.sort((a, z) => a.score - z.score)
-  }); */
-
-  finalAudits.sort((a, b) => {
-    b.belongsToAuditCategory.weight - a.belongsToAuditCategory.weight ||
-      a.score - b.score;
+  // convert array to object with weight as the keys
+  finalAudits.forEach((audit) => {
+    const weight = audit.belongsToAuditCategory.weight;
+    if (!objectAudits.hasOwnProperty(weight)) {
+      objectAudits[weight] = [];
+      objectAudits[weight].push(audit);
+    } else {
+      objectAudits[weight].push(audit);
+    }
   });
 
-  console.log(finalAudits);
+  // convert object back to array
+  const arrayOfAudits = Object.entries(objectAudits);
+
+  // sort array of arrays by highest weight
+  arrayOfAudits.sort((a, b) => b[0] - a[0]);
+
+  // sort audits within each weight by most important
+  arrayOfAudits.forEach((outerAudit, idx) => {
+    outerAudit.forEach((innerAudit) => {
+      if (typeof innerAudit === "object") {
+        innerAudit.sort((a, b) => a.score - b.score);
+      }
+    });
+  });
+
+  console.log(arrayOfAudits);
+
+  return arrayOfAudits;
 }
 
 inIt();
