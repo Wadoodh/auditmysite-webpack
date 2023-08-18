@@ -6,19 +6,14 @@ const webpack = require("webpack");
 module.exports = {
   mode: "production",
   entry: {
-    bundle: glob.sync("./src/index.js"),
-    /* bundle: [
-      path.resolve(__dirname, "src/index.js"),
-      path.resolve(__dirname, "src/psi/"),
-    ], */
+    bundle: "./src/index.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     clean: true,
-    assetModuleFilename: "[name][ext]",
   },
-  /* devtool: "source-map", */
+  /* devtool: "source-map",
   devServer: {
     static: {
       directory: path.resolve(__dirname, "dist"),
@@ -28,6 +23,7 @@ module.exports = {
     hot: true,
     compress: true,
   },
+  */
   /*   module: {
     rules: [
       {

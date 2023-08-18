@@ -1,27 +1,104 @@
 import axios from "axios";
-import validateForm from "./client/index";
-const isValidDomain = require("is-valid-domain");
-const _ = require("lodash");
+// import validateForm from "./client/index";
+import isUrl from "is-url";
+
+function organizeDataForRender(data) {
+  return data.reduce((obj, item) => {
+    obj.push({ [item[0]]: item[1] });
+    return obj;
+  }, []);
+}
+
+function getRecommendation(id) {
+  fetch("https://playground-cf9983.webflow.io/")
+    .then((res) => res.text())
+    .then((html) => {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(html, "text/html");
+
+      const recommendation = doc.getElementById(id);
+      if (!recommendation) return;
+      window.document.body.append(recommendation);
+    });
+}
 
 function inIt() {
-  const domain = "www.test.com";
+  const domain = "http://wadood";
 
-  // console.log("domain test: " + isValidDomain(domain));
+  console.log("domain test: " + isUrl(domain));
 
   async function getData() {
-    const { data: desktopData } = await axios.get("http://localhost:4000/data");
-    const { data: mobileData } = await axios.get("http://localhost:4001/data");
+    if (process.env.NODE_ENV === "development") {
+      const { data: desktop } = await axios.get("http://localhost:4000/data");
+      const { data: mobile } = await axios.get("http://localhost:4001/data");
 
-    const desktopResults = organizeInitialResult(desktopData[0]);
+      const desktopResults = organizeInitialResult(desktop[0]);
+      const mobileResults = organizeInitialResult(mobile[0]);
+
+      const data = removeOverlapsAndCombine(desktopResults, mobileResults);
+
+      const organizedData = data.reduce((obj, item) => {
+        obj.push({ [item[0]]: item[1] });
+        return obj;
+      }, []);
+
+      const result = organizeDataForRender(data);
+
+      // console.log(result);
+
+      result.forEach((obj) => {
+        for (let key in obj) {
+          obj[key].forEach((prop) => {
+            getRecommendation(prop.id);
+          });
+        }
+      });
+    } else {
+      const { data } = await axios.get(
+        "https://dev--psi-results--webflow-success.autocode.dev/",
+        { params: { website: "www.wadood.dev" } }
+      );
+
+      const { desktop, mobile } = data;
+
+      const desktopResults = organizeInitialResult(desktop);
+      const mobileResults = organizeInitialResult(mobile);
+
+      removeOverlapsAndCombine(desktopResults, mobileResults);
+    }
+
+    /* const { data } = await axios.get(
+      "https://dev--psi-results--webflow-success.autocode.dev/",
+      { params: { website: "www.wadood.dev" } }
+    ); */
+
+    // const { desktop, mobile } = data;
+
+    // organizeInitialResult(desktop)
+
+    // console.log(organizeInitialResult(desktop));
+
+    // https://dev--psi-results--webflow-success.autocode.dev/
+
+    /* const desktopResults = organizeInitialResult(desktopData[0]);
     const mobileResults = organizeInitialResult(mobileData[0]);
 
-    removeOverlapsAndCombine(desktopResults, mobileResults);
+    removeOverlapsAndCombine(desktopResults, mobileResults); */
+
+    /* const desktopResults = organizeInitialResult(desktop);
+    const mobileResults = organizeInitialResult(mobile);
+
+    removeOverlapsAndCombine(desktopResults, mobileResults); */
   }
 
   getData();
 }
 
+inIt();
+
 function organizeInitialResult(data) {
+  /* console.log(data);
+  console.log(data.lighthouseResult); */
   const {
     lighthouseResult: {
       audits,
@@ -29,8 +106,9 @@ function organizeInitialResult(data) {
     },
   } = data;
 
+  // console.log(performance);
+
   let standardAudits = []; // get all required audits
-  let accumulatedAudits = []; // store audits that have been added to prevent duplicates
 
   // iterate through all possible audits
   // get relevant ones for performance that contribute to weight/score
@@ -76,14 +154,15 @@ function organizeInitialResult(data) {
 }
 
 function removeOverlapsAndCombine(desktop, mobile) {
-  const finalAudits = [];
+  let finalAudits = [];
   const objectAudits = {};
 
   // add relevant desktop audits
   desktop.forEach((outerAudit) => {
     outerAudit.matchedAudits.forEach((innerAudit) => {
       if (innerAudit.score >= 0.9) return;
-      finalAudits.push(innerAudit);
+      // finalAudits.push(innerAudit);
+      findAuditAndReplaceOrAdd(finalAudits, innerAudit);
     });
   });
 
@@ -93,20 +172,26 @@ function removeOverlapsAndCombine(desktop, mobile) {
     outerAudit.matchedAudits.forEach((innerAudit) => {
       if (innerAudit.score >= 0.9) return;
 
-      const existingAuditIndex = finalAudits.findIndex(
-        (audit) => audit.id === innerAudit.id
-      );
-
-      if (existingAuditIndex !== -1) {
-        finalAudits[existingAuditIndex] =
-          innerAudit.score < finalAudits[existingAuditIndex].score
-            ? innerAudit
-            : finalAudits[existingAuditIndex];
-      } else {
-        finalAudits.push(innerAudit);
-      }
+      findAuditAndReplaceOrAdd(finalAudits, innerAudit);
     });
   });
+
+  function findAuditAndReplaceOrAdd(audits, currentAudit) {
+    const existingAuditIndex = audits.findIndex(
+      (audit) => audit.id === currentAudit.id
+    );
+
+    if (existingAuditIndex !== -1) {
+      audits[existingAuditIndex] =
+        currentAudit.score < audits[existingAuditIndex].score
+          ? currentAudit
+          : audits[existingAuditIndex];
+    } else {
+      audits.push(currentAudit);
+    }
+
+    return audits;
+  }
 
   // convert array to object with weight as the keys
   finalAudits.forEach((audit) => {
@@ -126,7 +211,7 @@ function removeOverlapsAndCombine(desktop, mobile) {
   arrayOfAudits.sort((a, b) => b[0] - a[0]);
 
   // sort audits within each weight by most important
-  arrayOfAudits.forEach((outerAudit, idx) => {
+  arrayOfAudits.forEach((outerAudit) => {
     outerAudit.forEach((innerAudit) => {
       if (typeof innerAudit === "object") {
         innerAudit.sort((a, b) => a.score - b.score);
@@ -138,8 +223,6 @@ function removeOverlapsAndCombine(desktop, mobile) {
 
   return arrayOfAudits;
 }
-
-inIt();
 
 /* 
 
@@ -182,3 +265,18 @@ inIt();
 }
 
 */
+
+/* const existingAuditIndex = finalAudits.findIndex(
+        (audit) => audit.id === innerAudit.id
+      );
+
+      if (existingAuditIndex !== -1) {
+        // console.log(finalAudits);
+
+        finalAudits[existingAuditIndex] =
+          innerAudit.score < finalAudits[existingAuditIndex].score
+            ? innerAudit
+            : finalAudits[existingAuditIndex];
+      } else {
+        finalAudits.push(innerAudit);
+      } */
