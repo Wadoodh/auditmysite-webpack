@@ -1,34 +1,38 @@
+// libraries
 import axios from "axios";
 // import validateForm from "./client/index";
 import isUrl from "is-url";
 
-function organizeDataForRender(data) {
-  return data.reduce((obj, item) => {
-    obj.push({ [item[0]]: item[1] });
-    return obj;
-  }, []);
-}
+// custom functions
+import fetchWebflowRecommendations from "./services/fetchWebflowRecommendations";
+import addWebflowCssFile from "./utils/addWebflowCssFile";
+import pickSpecificRecommendation from "./utils/pickSpecificRecommendation";
+import prepareDataForRender from "./utils/prepareDataForRender";
 
-function getRecommendation(id) {
-  fetch("https://playground-cf9983.webflow.io/")
-    .then((res) => res.text())
-    .then((html) => {
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(html, "text/html");
+const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
-      const recommendation = doc.getElementById(id);
-      if (!recommendation) return;
-      window.document.body.append(recommendation);
-    });
-}
+async function inIt() {
+  const recommendations = await fetchWebflowRecommendations();
 
-function inIt() {
+  if (IS_DEV_ENV) {
+    // add Webflow css file for styles in dev
+    addWebflowCssFile(recommendations);
+  }
+
+  console.log(recommendations);
+
   const domain = "http://wadood";
+  // console.log("domain test: " + isUrl(domain));
 
-  console.log("domain test: " + isUrl(domain));
+  /*  function prepareDataForRender(data) {
+    return data.reduce((obj, item) => {
+      obj.push({ [item[0]]: item[1] });
+      return obj;
+    }, []);
+  } */
 
   async function getData() {
-    if (process.env.NODE_ENV === "development") {
+    if (IS_DEV_ENV) {
       const { data: desktop } = await axios.get("http://localhost:4000/data");
       const { data: mobile } = await axios.get("http://localhost:4001/data");
 
@@ -42,14 +46,12 @@ function inIt() {
         return obj;
       }, []);
 
-      const result = organizeDataForRender(data);
-
-      // console.log(result);
+      const result = prepareDataForRender(data);
 
       result.forEach((obj) => {
         for (let key in obj) {
           obj[key].forEach((prop) => {
-            getRecommendation(prop.id);
+            pickSpecificRecommendation(recommendations, prop.id);
           });
         }
       });
@@ -66,29 +68,6 @@ function inIt() {
 
       removeOverlapsAndCombine(desktopResults, mobileResults);
     }
-
-    /* const { data } = await axios.get(
-      "https://dev--psi-results--webflow-success.autocode.dev/",
-      { params: { website: "www.wadood.dev" } }
-    ); */
-
-    // const { desktop, mobile } = data;
-
-    // organizeInitialResult(desktop)
-
-    // console.log(organizeInitialResult(desktop));
-
-    // https://dev--psi-results--webflow-success.autocode.dev/
-
-    /* const desktopResults = organizeInitialResult(desktopData[0]);
-    const mobileResults = organizeInitialResult(mobileData[0]);
-
-    removeOverlapsAndCombine(desktopResults, mobileResults); */
-
-    /* const desktopResults = organizeInitialResult(desktop);
-    const mobileResults = organizeInitialResult(mobile);
-
-    removeOverlapsAndCombine(desktopResults, mobileResults); */
   }
 
   getData();
@@ -97,16 +76,12 @@ function inIt() {
 inIt();
 
 function organizeInitialResult(data) {
-  /* console.log(data);
-  console.log(data.lighthouseResult); */
   const {
     lighthouseResult: {
       audits,
       categories: { performance },
     },
   } = data;
-
-  // console.log(performance);
 
   let standardAudits = []; // get all required audits
 
@@ -280,3 +255,37 @@ function removeOverlapsAndCombine(desktop, mobile) {
       } else {
         finalAudits.push(innerAudit);
       } */
+
+/* const { data } = await axios.get(
+      "https://dev--psi-results--webflow-success.autocode.dev/",
+      { params: { website: "www.wadood.dev" } }
+    ); */
+
+// const { desktop, mobile } = data;
+
+// organizeInitialResult(desktop)
+
+// console.log(organizeInitialResult(desktop));
+
+// https://dev--psi-results--webflow-success.autocode.dev/
+
+/* const desktopResults = organizeInitialResult(desktopData[0]);
+    const mobileResults = organizeInitialResult(mobileData[0]);
+
+    removeOverlapsAndCombine(desktopResults, mobileResults); */
+
+/* const desktopResults = organizeInitialResult(desktop);
+    const mobileResults = organizeInitialResult(mobile);
+
+    removeOverlapsAndCombine(desktopResults, mobileResults); */
+
+/* fetch("https://playground-cf9983.webflow.io/")
+      .then((res) => res.text())
+      .then((html) => {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, "text/html");
+
+        const recommendation = recommendations.getElementById(id);
+        if (!recommendation) return;
+        window.document.body.append(recommendation);
+      }); */
