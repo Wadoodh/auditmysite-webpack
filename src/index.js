@@ -3,21 +3,14 @@ import axios from "axios";
 // import validateForm from "./client/index";
 import isUrl from "is-url";
 
-// custom functions
+// COMMON
 import fetchWebflowRecommendations from "./services/fetchWebflowRecommendations";
-import addWebflowCssFile from "./utils/addWebflowCssFile";
 import pickSpecificRecommendation from "./utils/pickSpecificRecommendation";
 import prepareDataForRender from "./utils/prepareDataForRender";
-import validateForm from "./client";
+import validateFormAndRender from "./client";
 
-/* window.addEventListener("load", () => {
-  const websiteUrlInput = document.querySelector("website-url");
-
-  websiteUrlInput.addEventListener("input", (event) => {
-    const value = event.target;
-    console.log(value);
-  });
-}); */
+// DEV
+import addWebflowCssFile from "./utils/addWebflowCssFile";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
@@ -27,26 +20,24 @@ async function inIt() {
   if (IS_DEV_ENV) {
     // add Webflow css file for styles in dev
     addWebflowCssFile(recommendations);
+
+    // get Webflow html page and insert into dev env
+    async function fetchMainPage() {
+      const res = await fetch("https://playground-cf9983.webflow.io/");
+      const html = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const pageWrap = doc.getElementById("page-wrap");
+      document.body.append(pageWrap);
+
+      /* validation form and rendering process */
+      validateFormAndRender();
+    }
+
+    fetchMainPage();
+  } else {
+    // PRODUCTION CODE
   }
-
-  async function fetchMainPage() {
-    const res = await fetch("https://playground-cf9983.webflow.io/");
-    const html = await res.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-    const pageWrap = doc.getElementById("page-wrap");
-    document.body.append(pageWrap);
-
-    /* validation work */
-    validateForm();
-  }
-
-  fetchMainPage();
-
-  // console.log(recommendations);
-
-  const domain = "http://wadood";
-  // console.log("domain test: " + isUrl(domain));
 
   /*  function prepareDataForRender(data) {
     return data.reduce((obj, item) => {
@@ -60,17 +51,17 @@ async function inIt() {
       const { data: desktop } = await axios.get("http://localhost:4000/data");
       const { data: mobile } = await axios.get("http://localhost:4001/data");
 
-      const desktopResults = organizeInitialResult(desktop[0]);
-      const mobileResults = organizeInitialResult(mobile[0]);
+      /* const desktopResults = organizeInitialResult(desktop[0]);
+      const mobileResults = organizeInitialResult(mobile[0]); */
 
-      const data = removeOverlapsAndCombine(desktopResults, mobileResults);
+      /* const data = removeOverlapsAndCombine(desktopResults, mobileResults);
 
       const organizedData = data.reduce((obj, item) => {
         obj.push({ [item[0]]: item[1] });
         return obj;
       }, []);
 
-      const result = prepareDataForRender(data);
+      const result = prepareDataForRender(data); */
 
       /* result.forEach((obj) => {
         for (let key in obj) {
@@ -92,7 +83,7 @@ async function inIt() {
       const desktopResults = organizeInitialResult(desktop);
       const mobileResults = organizeInitialResult(mobile);
 
-      removeOverlapsAndCombine(desktopResults, mobileResults);
+      // removeOverlapsAndCombine(desktopResults, mobileResults);
     }
   }
 
@@ -100,6 +91,8 @@ async function inIt() {
 }
 
 inIt();
+
+/* 
 
 function organizeInitialResult(data) {
   const {
@@ -152,9 +145,9 @@ function organizeInitialResult(data) {
   );
 
   return standardAudits;
-}
+} */
 
-function removeOverlapsAndCombine(desktop, mobile) {
+/* function removeOverlapsAndCombine(desktop, mobile) {
   let finalAudits = [];
   const objectAudits = {};
 
@@ -223,7 +216,7 @@ function removeOverlapsAndCombine(desktop, mobile) {
   console.log(arrayOfAudits);
 
   return arrayOfAudits;
-}
+} */
 
 /* 
 
