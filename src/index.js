@@ -76,7 +76,7 @@ async function inIt() {
     } else {
       const { data } = await axios.get(
         "https://dev--psi-results--webflow-success.autocode.dev/",
-        { params: { website: "www.wadood.dev" } }
+        { params: { website } }
       );
 
       const { desktop, mobile } = data;
@@ -88,7 +88,7 @@ async function inIt() {
     }
   }
 
-  getData();
+  // getData();
 }
 
 inIt();

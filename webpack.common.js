@@ -4,15 +4,20 @@ const glob = require("glob");
 const webpack = require("webpack");
 
 module.exports = {
-  /* mode: "production", */
+  mode: "production",
   entry: {
-    bundle: "./src/index.js",
+    index: "./src/index.js",
   },
   output: {
+    // path: path.resolve(__dirname, "dist"),
+    filename: "[name].bundle.js",
+    clean: true,
+  },
+  /* output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     clean: true,
-  },
+  }, */
   /* devtool: "source-map",
   devServer: {
     static: {
