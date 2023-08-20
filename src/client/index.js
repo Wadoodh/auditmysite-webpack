@@ -14,22 +14,24 @@ export default function validateFormAndRender() {
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      inputValue = handleFormInput(event);
-      if (inputValue) {
-        fetchPageSpeedData(inputValue);
-      }
+      handleFormInput(event);
     });
   } else {
-    // PRODUCTION code
     Webflow.push(function () {
       $("form").submit(function (event) {
         handleFormInput(event);
-        inputValue = handleFormInput(event);
-        if (inputValue) fetchPageSpeedData(inputValue);
         return false;
       });
     });
   }
+}
+
+function handleFormInput(event) {
+  const formData = new FormData(event.target);
+  const inputValue = formData.get("website-url");
+  const isInputValid = handleInputValidation(inputValue);
+  if (!isInputValid) return;
+  fetchPageSpeedData(inputValue);
 }
 
 function watchInput() {
@@ -43,17 +45,9 @@ function watchInput() {
   });
 }
 
-function handleFormInput(event) {
-  const formData = new FormData(event.target);
-  const inputValue = formData.get("website-url");
-  const isInputValid = handleInputValidation(inputValue);
-  if (!isInputValid) return;
-  return inputValue;
-}
-
 function handleInputValidation(inputValue) {
   if (inputValue.length === 0) {
-    showError("Length to short");
+    showError("Enter a website");
     return false;
   }
 

@@ -33,7 +33,7 @@ export default async function fetchPageSpeedData(website) {
   } else {
     const { data } = await axios.get(
       "https://dev--psi-results--webflow-success.autocode.dev/",
-      { params: { website: website } }
+      { params: { website } }
     );
 
     const { desktop, mobile } = data;
@@ -45,6 +45,7 @@ export default async function fetchPageSpeedData(website) {
 
     const result = prepareDataForRender(value);
 
+    // render each recommendation based on PSI data
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {

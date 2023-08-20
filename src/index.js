@@ -37,6 +37,7 @@ async function inIt() {
     fetchMainPage();
   } else {
     // PRODUCTION CODE
+    validateFormAndRender();
   }
 
   /*  function prepareDataForRender(data) {
