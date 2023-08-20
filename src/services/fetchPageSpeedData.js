@@ -10,7 +10,7 @@ const IS_DEV_ENV = process.env.NODE_ENV === "development";
 export default async function fetchPageSpeedData(website) {
   const recommendations = await fetchWebflowRecommendations();
 
-  if (!IS_DEV_ENV) {
+  if (IS_DEV_ENV) {
     const { data: desktop } = await axios.get("http://localhost:4000/data");
     const { data: mobile } = await axios.get("http://localhost:4001/data");
 
