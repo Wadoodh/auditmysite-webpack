@@ -4,7 +4,7 @@ const glob = require("glob");
 const webpack = require("webpack");
 
 module.exports = {
-  mode: "production",
+  /* mode: "production", */
   entry: {
     index: "./src/index.js",
   },
