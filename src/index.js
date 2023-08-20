@@ -8,6 +8,16 @@ import fetchWebflowRecommendations from "./services/fetchWebflowRecommendations"
 import addWebflowCssFile from "./utils/addWebflowCssFile";
 import pickSpecificRecommendation from "./utils/pickSpecificRecommendation";
 import prepareDataForRender from "./utils/prepareDataForRender";
+import validateForm from "./client";
+
+/* window.addEventListener("load", () => {
+  const websiteUrlInput = document.querySelector("website-url");
+
+  websiteUrlInput.addEventListener("input", (event) => {
+    const value = event.target;
+    console.log(value);
+  });
+}); */
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
@@ -19,7 +29,21 @@ async function inIt() {
     addWebflowCssFile(recommendations);
   }
 
-  console.log(recommendations);
+  async function fetchMainPage() {
+    const res = await fetch("https://playground-cf9983.webflow.io/");
+    const html = await res.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const pageWrap = doc.getElementById("page-wrap");
+    document.body.append(pageWrap);
+
+    /* validation work */
+    validateForm();
+  }
+
+  fetchMainPage();
+
+  // console.log(recommendations);
 
   const domain = "http://wadood";
   // console.log("domain test: " + isUrl(domain));
@@ -48,13 +72,15 @@ async function inIt() {
 
       const result = prepareDataForRender(data);
 
-      result.forEach((obj) => {
+      /* result.forEach((obj) => {
         for (let key in obj) {
           obj[key].forEach((prop) => {
             pickSpecificRecommendation(recommendations, prop.id);
           });
         }
-      });
+      }); */
+
+      // validateForm();
     } else {
       const { data } = await axios.get(
         "https://dev--psi-results--webflow-success.autocode.dev/",
