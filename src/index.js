@@ -13,7 +13,7 @@ import validateFormAndRender from "./client";
 import addWebflowCssFile from "./utils/addWebflowCssFile";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
-console.log("Environment is " + IS_DEV_ENV ? "DEV" : "PROD");
+console.log("Environment is " + (IS_DEV_ENV ? "DEV" : "PROD"));
 
 async function inIt() {
   const recommendations = await fetchWebflowRecommendations();
