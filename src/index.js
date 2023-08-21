@@ -13,7 +13,7 @@ import validateFormAndRender from "./client";
 import addWebflowCssFile from "./utils/addWebflowCssFile";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
-console.log("In DEV Env" + IS_DEV_ENV);
+console.log("Environment is " + IS_DEV_ENV ? "DEV" : "PROD");
 
 async function inIt() {
   const recommendations = await fetchWebflowRecommendations();
@@ -310,3 +310,6 @@ function organizeInitialResult(data) {
         if (!recommendation) return;
         window.document.body.append(recommendation);
       }); */
+
+// https://wadoodh.github.io/auditmysite-webpack/dist/index.bundle.js
+// https://cdn.jsdelivr.net/gh/wadoodh/auditmysite-webpack/dist/index.bundle.js
