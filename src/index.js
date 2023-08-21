@@ -312,4 +312,4 @@ function organizeInitialResult(data) {
       }); */
 
 // https://wadoodh.github.io/auditmysite-webpack/dist/index.bundle.js
-// https://cdn.jsdelivr.net/gh/wadoodh/auditmysite-webpack/dist/index.bundle.js
+// https://cdn.jsdelivr.net/gh/wadoodh/auditmysite-webpack@latest/dist/index.bundle.js
