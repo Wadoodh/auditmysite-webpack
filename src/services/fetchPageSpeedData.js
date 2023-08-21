@@ -12,7 +12,7 @@ export default async function fetchPageSpeedData(website) {
 
   showLoader();
 
-  if (IS_DEV_ENV) {
+  if (!IS_DEV_ENV) {
     const { data: desktop } = await axios.get("http://localhost:4000/data");
     const { data: mobile } = await axios.get("http://localhost:4001/data");
 
@@ -33,12 +33,26 @@ export default async function fetchPageSpeedData(website) {
 
     // validateForm();
   } else {
-    const { data } = await axios.get(
+    // https://dev--desktop-psi-results--webflow-success.autocode.dev/
+
+    /* const { data } = await axios.get(
       "https://dev--psi-results--webflow-success.autocode.dev/",
       { params: { website } }
+    ); */
+
+    const { data: desktopData } = await axios.get(
+      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
+      { params: { website, strategy: "desktop" } }
     );
 
-    const { desktop, mobile } = data;
+    const { data: mobileData } = await axios.get(
+      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
+      { params: { website, strategy: "mobile" } }
+    );
+
+    // const { desktop, mobile } = data;
+    const { desktop } = desktopData;
+    const { mobile } = mobileData;
 
     const desktopResults = organizeInitialResult(desktop);
     const mobileResults = organizeInitialResult(mobile);
