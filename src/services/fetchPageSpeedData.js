@@ -7,24 +7,12 @@ import fetchWebflowRecommendations from "./fetchWebflowRecommendations";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
-function showLoader() {
-  const loader = document.getElementById("loader");
-  const form = document.getElementById("form");
-  loader.style.display = "block";
-  form.style.display = "none";
-}
-
-function hideLoader() {
-  const loader = document.getElementById("loader");
-  loader.style.display = "none";
-}
-
 export default async function fetchPageSpeedData(website) {
   const recommendations = await fetchWebflowRecommendations();
 
   showLoader();
 
-  if (!IS_DEV_ENV) {
+  if (IS_DEV_ENV) {
     const { data: desktop } = await axios.get("http://localhost:4000/data");
     const { data: mobile } = await axios.get("http://localhost:4001/data");
 
@@ -70,4 +58,22 @@ export default async function fetchPageSpeedData(website) {
   }
 
   hideLoader();
+}
+
+function showLoader() {
+  const loader = document.getElementById("loader");
+  const form = document.getElementById("form");
+  loader.style.display = "block";
+  form.style.display = "none";
+}
+
+function hideLoader() {
+  const loader = document.getElementById("loader");
+  loader.style.display = "none";
+  showResults();
+}
+
+function showResults() {
+  const results = document.getElementById("results-wrapper");
+  results.style.display = "grid";
 }

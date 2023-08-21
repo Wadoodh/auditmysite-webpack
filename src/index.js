@@ -16,15 +16,14 @@ const IS_DEV_ENV = process.env.NODE_ENV === "development";
 console.log("Environment is " + (IS_DEV_ENV ? "DEV" : "PROD"));
 
 async function inIt() {
-  const recommendations = await fetchWebflowRecommendations();
-
   if (IS_DEV_ENV) {
+    const recommendations = await fetchWebflowRecommendations();
     // add Webflow css file for styles in dev
     addWebflowCssFile(recommendations);
 
     // get Webflow html page and insert into dev env
     async function fetchMainPage() {
-      const res = await fetch("https://playground-cf9983.webflow.io/");
+      const res = await fetch("https://ent-site-audit.webflow.io/");
       const html = await res.text();
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");

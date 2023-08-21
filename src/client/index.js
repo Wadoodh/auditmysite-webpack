@@ -9,7 +9,6 @@ export default function validateFormAndRender() {
 
   // dev code
   if (IS_DEV_ENV) {
-    let inputValue = "";
     const form = document.getElementById("form");
 
     form.addEventListener("submit", (event) => {
