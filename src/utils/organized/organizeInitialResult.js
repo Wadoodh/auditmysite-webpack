@@ -48,5 +48,8 @@ export default function organizeInitialResult(data) {
     audit.matchedAudits.sort((a, z) => a.score - z.score)
   );
 
+  /* console.log("organizeInitialResult...");
+  console.log(standardAudits); */
+
   return standardAudits;
 }

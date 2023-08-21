@@ -19,14 +19,20 @@ export default async function fetchPageSpeedData(website) {
     const desktopResults = organizeInitialResult(desktop[0]);
     const mobileResults = organizeInitialResult(mobile[0]);
 
+    /* console.log("desktop...");
+    console.log(desktop[0]); */
+
     const data = removeOverlapsAndCombine(desktopResults, mobileResults);
 
     const result = prepareDataForRender(data);
 
+    /* console.log("result...");
+    console.log(result); */
+
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {
-          pickSpecificRecommendation(recommendations, prop.id);
+          pickSpecificRecommendation(recommendations, prop);
         });
       }
     });
@@ -65,7 +71,7 @@ export default async function fetchPageSpeedData(website) {
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {
-          pickSpecificRecommendation(recommendations, prop.id);
+          pickSpecificRecommendation(recommendations, prop);
         });
       }
     });

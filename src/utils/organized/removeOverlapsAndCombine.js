@@ -64,7 +64,7 @@ export default function removeOverlapsAndCombine(desktop, mobile) {
     });
   });
 
-  console.log(arrayOfAudits);
+  // console.log(arrayOfAudits);
 
   return arrayOfAudits;
 }
