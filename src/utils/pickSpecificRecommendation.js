@@ -1,5 +1,9 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default function pickSpecificRecommendation(doc, audit) {
   const recommendation = doc.getElementById(audit.id);
+  recommendation.setAttribute("data-id", uuidv4());
+  recommendation.setAttribute("contenteditable", false);
   if (!recommendation) return;
   document.getElementById("results").append(recommendation);
   createAudit(audit);

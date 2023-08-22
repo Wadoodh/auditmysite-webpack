@@ -96,4 +96,20 @@ function hideLoader() {
 function showResults() {
   const results = document.getElementById("results-wrapper");
   results.style.display = "grid";
+  listenToResultsContainer();
+}
+
+function listenToResultsContainer() {
+  const results = document.getElementById("results");
+  results.addEventListener("click", (event) => {
+    if (event.target.id !== "edit-audit") return;
+
+    const auditEditMode =
+      event.target.parentNode.getAttribute("contenteditable");
+
+    event.target.parentNode.setAttribute(
+      "contenteditable",
+      auditEditMode === "true" ? false : true
+    );
+  });
 }
