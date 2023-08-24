@@ -157,7 +157,7 @@ function getResultsPage() {
   </html>
   `;
 
-  pdfTest(one);
+  // pdfTest(one);
 }
 
 function showLoader() {
@@ -212,6 +212,7 @@ async function pdfTest(htmlString) {
   );
 
   console.log(data);
+  window.open(data.FileUrl, "_blank");
 }
 
 // pdfTest();
