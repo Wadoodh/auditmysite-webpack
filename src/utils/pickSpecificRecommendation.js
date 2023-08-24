@@ -1,12 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default function pickSpecificRecommendation(doc, audit) {
+  // console.log(audit);
   const recommendation = doc.getElementById(audit.id);
-  recommendation.setAttribute("data-id", uuidv4());
-  recommendation.setAttribute("contenteditable", false);
-  if (!recommendation) return;
-  document.getElementById("results").append(recommendation);
-  createAudit(audit);
+  // console.log(recommendation);
+
+  if (!recommendation) {
+    alert(`No audit found on the /Components page for ${audit.id}`);
+  } else {
+    recommendation.setAttribute("data-id", uuidv4());
+    recommendation.setAttribute("contenteditable", false);
+    // if (!recommendation) return;
+    document.getElementById("results").append(recommendation);
+    createAudit(audit);
+  }
 }
 
 /* ************************************************** */

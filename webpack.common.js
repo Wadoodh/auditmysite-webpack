@@ -13,6 +13,13 @@ module.exports = {
     filename: "[name].bundle.js",
     clean: true,
   },
+  /* resolve: {
+    fallback: {
+      https: require.resolve("https-browserify"),
+      http: require.resolve("stream-http"),
+    },
+  }, */
+  /* resolve: {fallback: { "https": require.resolve("https-browserify") }} */
   /* output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
