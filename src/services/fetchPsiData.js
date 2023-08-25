@@ -1,14 +1,9 @@
 import axios from "axios";
-// import organizeInitialResult from "../utils/organized/organizeInitialResult";
-// import removeOverlapsAndCombine from "../utils/organized/removeOverlapsAndCombine";
-// import prepareDataForRender from "../utils/prepareDataForRender";
-// import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
-// import fetchWebflowRecommendations from "./fetchWebflowRecommendations";
 import fetchWebflowTips from "./fetchWebflowTips";
-import removeOverlapsAndCombine from "../../utils/organized/removeOverlapsAndCombine";
-import organizeInitialResult from "../../utils/organized/organizeInitialResult";
-import prepareDataForRender from "../../utils/prepareDataForRender";
-import pickSpecificRecommendation from "../../utils/pickSpecificRecommendation";
+import removeOverlapsAndCombine from "../utils/organized/removeOverlapsAndCombine";
+import organizeInitialResult from "../utils/organized/organizeInitialResult";
+import prepareDataForRender from "../utils/prepareDataForRender";
+import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
 
 // global variable
 const IS_DEV_ENV = process.env.NODE_ENV === "development";

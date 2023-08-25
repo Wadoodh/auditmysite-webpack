@@ -1,11 +1,9 @@
 // COMMON **********
-// import fetchWebflowRecommendations from "./services/fetchWebflowRecommendations";
 import validateFormAndRender from "./client";
 
 // DEV **********
-// import addWebflowCssFile from "./utils/fetchWebflowCssFile.js";
 import fetchWebflowCssFile from "./utils/fetchWebflowCssFile";
-import fetchWebflowTips from "./services/api/fetchWebflowTips";
+import fetchWebflowTips from "./services/fetchWebflowTips";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 

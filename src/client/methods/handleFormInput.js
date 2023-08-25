@@ -1,6 +1,5 @@
 import handleInputValidation from "./handleInputValidation";
-import fetchPageSpeedData from "../../services/fetchPageSpeedData";
-import fetchPsiData from "../../services/api/fetchPsiData";
+import fetchPsiData from "../../services/fetchPsiData";
 
 export default function handleFormInput(event) {
   const formData = new FormData(event.target);
