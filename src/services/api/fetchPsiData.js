@@ -1,14 +1,21 @@
 import axios from "axios";
-import organizeInitialResult from "../utils/organized/organizeInitialResult";
-import removeOverlapsAndCombine from "../utils/organized/removeOverlapsAndCombine";
-import prepareDataForRender from "../utils/prepareDataForRender";
-import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
-import fetchWebflowRecommendations from "./fetchWebflowRecommendations";
+// import organizeInitialResult from "../utils/organized/organizeInitialResult";
+// import removeOverlapsAndCombine from "../utils/organized/removeOverlapsAndCombine";
+// import prepareDataForRender from "../utils/prepareDataForRender";
+// import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
+// import fetchWebflowRecommendations from "./fetchWebflowRecommendations";
+import fetchWebflowTips from "./fetchWebflowTips";
+import removeOverlapsAndCombine from "../../utils/organized/removeOverlapsAndCombine";
+import organizeInitialResult from "../../utils/organized/organizeInitialResult";
+import prepareDataForRender from "../../utils/prepareDataForRender";
+import pickSpecificRecommendation from "../../utils/pickSpecificRecommendation";
 
+// global variable
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
-export default async function fetchPageSpeedData(website) {
-  const recommendations = await fetchWebflowRecommendations();
+export default async function fetchPsiData(website) {
+  // const webflowTips = await fetchWebflowRecommendations();
+  const webflowTips = await fetchWebflowTips();
 
   showLoader();
 
@@ -26,7 +33,7 @@ export default async function fetchPageSpeedData(website) {
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {
-          pickSpecificRecommendation(recommendations, prop);
+          pickSpecificRecommendation(webflowTips, prop);
         });
       }
     });
@@ -56,7 +63,7 @@ export default async function fetchPageSpeedData(website) {
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {
-          pickSpecificRecommendation(recommendations, prop);
+          pickSpecificRecommendation(webflowTips, prop);
         });
       }
     });

@@ -1,24 +1,21 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default function pickSpecificRecommendation(doc, audit) {
-  // console.log(audit);
   const recommendation = doc.getElementById(audit.id);
-  // console.log(recommendation);
 
   if (!recommendation) {
     alert(`No audit found on the /Components page for ${audit.id}`);
   } else {
     recommendation.setAttribute("data-id", uuidv4());
     recommendation.setAttribute("contenteditable", false);
-    // if (!recommendation) return;
     document.getElementById("results").append(recommendation);
-    createAudit(audit);
+    createAuditDetailsTable(audit);
   }
 }
 
 /* ************************************************** */
 
-function createAudit(currentAudit) {
+function createAuditDetailsTable(currentAudit) {
   let resultsContainer = document.getElementById("results");
 
   const currentAuditDetails = currentAudit.details;
@@ -55,8 +52,8 @@ function createAudit(currentAudit) {
   let tableTitles = Object.values(tableHead);
 
   // audit title and desc for table
-  const title = createTitle(currentAudit.title);
-  const description = createDescription(currentAudit.description);
+  const title = createAuditDetailsTitle(currentAudit.title);
+  const description = createAuditDetailsDescription(currentAudit.description);
 
   generateTable(
     table,
@@ -67,14 +64,14 @@ function createAudit(currentAudit) {
   );
 
   // generate the table first
-  generateTableHead(table, tableTitles);
+  createAuditDetailsTableHeader(table, tableTitles);
 
   function generateTable(table, data, types, subItemHeadings, subItemTypes) {
     data.forEach((rowData) => {
       let newRow = table.insertRow();
 
       headerKeys.forEach((key, index) => {
-        createTableRow(newRow, rowData, key, index, types);
+        createAuditDetailsTableRow(newRow, rowData, key, index, types);
       });
 
       if (rowData.hasOwnProperty("subItems")) {
@@ -82,7 +79,7 @@ function createAudit(currentAudit) {
           let newRow = table.insertRow();
 
           subItemHeadings.forEach((subHeading, index) => {
-            createTableRow(
+            createAuditDetailsTableRow(
               newRow,
               subRowData,
               subHeading?.key || "none",
@@ -96,7 +93,7 @@ function createAudit(currentAudit) {
     });
   }
 
-  function createTableRow(
+  function createAuditDetailsTableRow(
     newRow,
     rowData,
     key,
@@ -106,7 +103,7 @@ function createAudit(currentAudit) {
   ) {
     let cellToInsert = newRow.insertCell();
     if (isSubItem) cellToInsert.classList.add("sub-item");
-    let cellInfo = formatCellData(
+    let cellInfo = formatAuditDetailsCellData(
       types[index] || itemOrValueTypes[index],
       rowData[key]
     );
@@ -127,8 +124,6 @@ function createAudit(currentAudit) {
     }
   }
 
-  // document.body.append(table);
-
   // table wrapper
   const tableWrapper = document.createElement("div");
   tableWrapper.classList.add("table-wrapper");
@@ -139,32 +134,25 @@ function createAudit(currentAudit) {
   resultsContainer.append(tableWrapper);
 }
 
-function createTitle(text) {
+function createAuditDetailsTitle(text) {
   const title = document.createElement("h2");
   const titleText = document.createTextNode(text);
   title.appendChild(titleText);
   return title;
 }
 
-function createDescription(text) {
+function createAuditDetailsDescription(text) {
   const description = document.createElement("p");
   const descriptionText = document.createTextNode(text);
   description.appendChild(descriptionText);
   return description;
 }
 
-function formatCellData(type, data) {
+function formatAuditDetailsCellData(type, data) {
   let formatted = "";
 
   switch (type) {
-    /* case "text":
-      formatted = data;
-      break; */
-    /* case "numeric":
-      formatted = data;
-      break; */
     case "ms":
-      // formatted = `${(data * 0.001).toFixed(3)} seconds`;
       formatted = `${data.toFixed(0)} ms`;
       break;
     case "node":
@@ -182,7 +170,7 @@ function formatCellData(type, data) {
       ${data.text} — <a href="${data.url}" target="_blank">${data.url}</a>
       </div>`;
       break;
-    case "url": // valueType
+    case "url":
       if (!data) break;
       if (typeof data === "object") {
         formatted = `<a href="${data.url}" target="_blank">${data.url}</a>`;
@@ -192,10 +180,10 @@ function formatCellData(type, data) {
         formatted = data;
       }
       break;
-    case "source-location": // valueType source-location
+    case "source-location":
       formatted = `<a href="${data.location.url}" target="_blank">${data.location.url}</a>`;
       break;
-    case "code": // valueType
+    case "code":
       if (!data) break;
       if (data && data.includes("https")) {
         formatted = `<a href="${data}" target="_blank">${data}</a>`;
@@ -203,11 +191,11 @@ function formatCellData(type, data) {
         formatted = data;
       }
       break;
-    case "bytes": // valueType
+    case "bytes":
       if (!data) return "";
       formatted = `${(data * 0.000976562).toFixed(2)} KiB`;
       break;
-    case "timespanMs": // valueType
+    case "timespanMs":
       formatted = `${data} ms`;
       break;
     default:
@@ -217,7 +205,7 @@ function formatCellData(type, data) {
   return formatted;
 }
 
-function generateTableHead(table, data) {
+function createAuditDetailsTableHeader(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
 
