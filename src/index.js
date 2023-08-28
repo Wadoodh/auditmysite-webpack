@@ -11,9 +11,9 @@ console.log("Environment is " + (IS_DEV_ENV ? "DEV" : "PROD"));
 
 async function inIt() {
   if (IS_DEV_ENV) {
-    const recommendations = await fetchWebflowTips();
+    const wfTips = await fetchWebflowTips();
     // add Webflow css file for styles in dev
-    fetchWebflowCssFile(recommendations);
+    fetchWebflowCssFile(wfTips);
 
     // get Webflow html page and insert into dev env
     async function fetchMainPage() {

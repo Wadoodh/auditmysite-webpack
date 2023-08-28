@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import createTable from "../render/table/createTable";
 
 export default function pickSpecificRecommendation(doc, audit) {
   const recommendation = doc.getElementById(audit.id);
@@ -9,13 +10,13 @@ export default function pickSpecificRecommendation(doc, audit) {
     recommendation.setAttribute("data-id", uuidv4());
     recommendation.setAttribute("contenteditable", false);
     document.getElementById("results").append(recommendation);
-    createAuditDetailsTable(audit);
+    createTable(audit);
   }
 }
 
 /* ************************************************** */
-
-function createAuditDetailsTable(currentAudit) {
+/* 
+function createTable(currentAudit) {
   let resultsContainer = document.getElementById("results");
 
   const currentAuditDetails = currentAudit.details;
@@ -52,8 +53,8 @@ function createAuditDetailsTable(currentAudit) {
   let tableTitles = Object.values(tableHead);
 
   // audit title and desc for table
-  const title = createAuditDetailsTitle(currentAudit.title);
-  const description = createAuditDetailsDescription(currentAudit.description);
+  const title = createTableTitle(currentAudit.title);
+  const description = createTableDescription(currentAudit.description);
 
   generateTable(
     table,
@@ -64,7 +65,7 @@ function createAuditDetailsTable(currentAudit) {
   );
 
   // generate the table first
-  createAuditDetailsTableHeader(table, tableTitles);
+  createTableHeader(table, tableTitles);
 
   function generateTable(table, data, types, subItemHeadings, subItemTypes) {
     data.forEach((rowData) => {
@@ -103,7 +104,7 @@ function createAuditDetailsTable(currentAudit) {
   ) {
     let cellToInsert = newRow.insertCell();
     if (isSubItem) cellToInsert.classList.add("sub-item");
-    let cellInfo = formatAuditDetailsCellData(
+    let cellInfo = formatTableCellData(
       types[index] || itemOrValueTypes[index],
       rowData[key]
     );
@@ -129,26 +130,27 @@ function createAuditDetailsTable(currentAudit) {
   tableWrapper.classList.add("table-wrapper");
 
   /* tableWrapper.append(title);
-  tableWrapper.append(description); */
+    tableWrapper.append(description); 
   tableWrapper.append(table);
   resultsContainer.append(tableWrapper);
 }
+ */
 
-function createAuditDetailsTitle(text) {
+/* function createTableTitle(text) {
   const title = document.createElement("h2");
   const titleText = document.createTextNode(text);
   title.appendChild(titleText);
   return title;
-}
+} */
 
-function createAuditDetailsDescription(text) {
+/* function createTableDescription(text) {
   const description = document.createElement("p");
   const descriptionText = document.createTextNode(text);
   description.appendChild(descriptionText);
   return description;
-}
+} */
 
-function formatAuditDetailsCellData(type, data) {
+/* function formatTableCellData(type, data) {
   let formatted = "";
 
   switch (type) {
@@ -203,9 +205,9 @@ function formatAuditDetailsCellData(type, data) {
   }
 
   return formatted;
-}
+} */
 
-function createAuditDetailsTableHeader(table, data) {
+/* function createTableHeader(table, data) {
   let thead = table.createTHead();
   let row = thead.insertRow();
 
@@ -216,3 +218,4 @@ function createAuditDetailsTableHeader(table, data) {
     row.appendChild(th);
   }
 }
+ */
