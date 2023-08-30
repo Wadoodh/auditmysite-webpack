@@ -5,7 +5,7 @@ import organizeInitialResult from "../utils/organized/organizeInitialResult";
 import prepareDataForRender from "../utils/prepareDataForRender";
 import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
 import fetchPdf from "./fetchPdf";
-import screamingFrogTips from "../events/screamingFrog";
+import checkboxItems from "../events";
 
 // global variable
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
@@ -39,7 +39,8 @@ export default async function fetchPsiData(website) {
 
     fetchPdf();
 
-    screamingFrogTips(webflowTips);
+    checkboxItems(webflowTips, "manual-review-items", "manual-review");
+    checkboxItems(webflowTips, "screaming-frog-items", "screaming-frog");
   } else {
     const { data: desktopData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
