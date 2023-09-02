@@ -1,8 +1,6 @@
-export default function checkboxItems(
-  webflowTips,
-  checkboxContainer,
-  container
-) {
+import { getWebflowTips } from "../services/fetchWebflowTips";
+
+export default function checkboxListener(checkboxContainer, container) {
   const checkboxItems = document.getElementById(checkboxContainer);
   const manualReviewContainer = document.getElementById(container);
   manualReviewContainer.style.display = "none";
@@ -17,7 +15,9 @@ export default function checkboxItems(
     if (!isACheckbox) return;
 
     if (event.target.checked) {
-      const tip = webflowTips.getElementById(event.target.id).cloneNode(true);
+      const tip = getWebflowTips()
+        .getElementById(event.target.id)
+        .cloneNode(true);
       manualReviewContainer.append(tip);
     } else {
       manualReviewContainer.querySelector(`#${event.target.id}`).remove();

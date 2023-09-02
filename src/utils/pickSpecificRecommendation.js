@@ -1,8 +1,13 @@
+import AnchorJS from "anchor-js";
 import { v4 as uuidv4 } from "uuid";
 import createTable from "../render/table/createTable";
+import { getWebflowTips } from "../services/fetchWebflowTips";
 
-export default function pickSpecificRecommendation(doc, audit) {
-  const recommendation = doc.getElementById(audit.id);
+export default function pickSpecificRecommendation(audit) {
+  const tips = getWebflowTips();
+  const recommendation = tips.getElementById(audit.id);
+
+  // createSideBarLinks(recommendation);
 
   if (!recommendation) {
     alert(`No audit found on the /Components page for ${audit.id}`);
@@ -12,6 +17,19 @@ export default function pickSpecificRecommendation(doc, audit) {
     document.getElementById("results").append(recommendation);
     createTable(audit);
   }
+
+  /* const anchors = new AnchorJS();
+  anchors.add("h1");
+  console.log(anchors.elements); */
+}
+
+function createSideBarLinks(section) {
+  // section.id
+  // console.log(section.id);
+  // console.log(section);
+  /* const title = section.querySelector("h1");
+  title.setAttribute("data-anchor-id", section.id); */
+  // console.log(title);
 }
 
 /* ************************************************** */

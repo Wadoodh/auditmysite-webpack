@@ -1,18 +1,17 @@
 import axios from "axios";
-import fetchWebflowTips from "./fetchWebflowTips";
+// import fetchWebflowTips from "./webflowTips";
 import removeOverlapsAndCombine from "../utils/organized/removeOverlapsAndCombine";
 import organizeInitialResult from "../utils/organized/organizeInitialResult";
 import prepareDataForRender from "../utils/prepareDataForRender";
 import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
 import fetchPdf from "./fetchPdf";
-import checkboxItems from "../events";
+import checkboxListener from "../events/checkboxListener";
+import exportPdfListener from "../events/exportPdfListener";
 
 // global variable
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
 export default async function fetchPsiData(website) {
-  const webflowTips = await fetchWebflowTips();
-
   showLoader();
 
   if (IS_DEV_ENV) {
@@ -32,15 +31,16 @@ export default async function fetchPsiData(website) {
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {
-          pickSpecificRecommendation(webflowTips, prop);
+          pickSpecificRecommendation(prop);
         });
       }
     });
 
     fetchPdf();
 
-    checkboxItems(webflowTips, "manual-review-items", "manual-review");
-    checkboxItems(webflowTips, "screaming-frog-items", "screaming-frog");
+    checkboxListener("manual-review-items", "manual-review");
+    checkboxListener("screaming-frog-items", "screaming-frog");
+    exportPdfListener();
   } else {
     const { data: desktopData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
@@ -58,15 +58,18 @@ export default async function fetchPsiData(website) {
     const desktopResults = organizeInitialResult(desktop);
     const mobileResults = organizeInitialResult(mobile);
 
-    const value = removeOverlapsAndCombine(desktopResults, mobileResults);
+    const uniquePsiResults = removeOverlapsAndCombine(
+      desktopResults,
+      mobileResults
+    );
 
-    const result = prepareDataForRender(value);
+    const result = prepareDataForRender(uniquePsiResults);
 
     // render each recommendation based on PSI data
     result.forEach((obj) => {
       for (let key in obj) {
         obj[key].forEach((prop) => {
-          pickSpecificRecommendation(webflowTips, prop);
+          pickSpecificRecommendation(prop);
         });
       }
     });

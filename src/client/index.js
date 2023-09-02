@@ -1,6 +1,5 @@
-// import fetchPageSpeedData from "../services/fetchPageSpeedData";
-import handleFormInput from "./methods/handleFormInput";
-import watchInput from "./methods/watchInput";
+import fetchPsiData from "../services/fetchPsiData";
+import isUrl from "is-url";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
@@ -26,15 +25,15 @@ export default function validateFormAndRender() {
   }
 }
 
-/* function handleFormInput(event) {
+function handleFormInput(event) {
   const formData = new FormData(event.target);
   const inputValue = formData.get("website-url");
   const isInputValid = handleInputValidation(inputValue);
   if (!isInputValid) return;
-  fetchPageSpeedData(inputValue);
-} */
+  fetchPsiData(inputValue);
+}
 
-/* function watchInput() {
+function watchInput() {
   const input = document.getElementById("website-url");
   const formError = document.getElementById("form-error");
 
@@ -43,9 +42,9 @@ export default function validateFormAndRender() {
       formError.classList.remove("display-block");
     }
   });
-} */
+}
 
-/* function handleInputValidation(inputValue) {
+function handleInputValidation(inputValue) {
   if (inputValue.length === 0) {
     showError("Enter a website");
     return false;
@@ -63,10 +62,10 @@ export default function validateFormAndRender() {
   }
 
   return true;
-} */
+}
 
-/* function showError(message) {
+function showError(message) {
   const formError = document.getElementById("form-error");
   formError.textContent = message;
   formError.classList.add("display-block");
-} */
+}
