@@ -6,9 +6,35 @@ export default function exportPdfListener() {
   exportButton.addEventListener("click", async function () {
     this.textContent = "Generating...";
     const pdf = await fetchPdf();
-    downloadFile(pdf.FileUrl);
+    downloadPDF(pdf.FileUrl);
     this.textContent = "Create new report";
   });
+}
+
+async function downloadPDF(pdfFile) {
+  const filename = "temp name";
+
+  try {
+    const response = await fetch(pdfFile);
+    const pdfBlob = await response.blob();
+
+    const url = window.URL.createObjectURL(pdfBlob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.style.display = "none";
+    document.body.appendChild(link);
+
+    link.click();
+
+    // clean up
+
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+  } catch (error) {
+    console.log("Error downloading PDF", error);
+  }
 }
 
 function downloadFile(url) {

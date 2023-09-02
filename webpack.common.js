@@ -17,11 +17,11 @@ module.exports = {
     clean: true,
     assetModuleFilename: "[name][ext]",
   },
-  plugins: [
+  /*   plugins: [
     new HtmlWebpackPlugin({
       title: "Development",
       filename: "index.html",
       template: "src/template.html",
     }),
-  ],
+  ], */
 };

@@ -2,13 +2,14 @@ import { getWebflowTips } from "../services/fetchWebflowTips";
 
 export default function checkboxListener(checkboxContainer, container) {
   const checkboxItems = document.getElementById(checkboxContainer);
-  const manualReviewContainer = document.getElementById(container);
-  manualReviewContainer.style.display = "none";
+  const siteAuditSection = document.getElementById(container);
+  siteAuditSection.style.display = "none";
+  const resultsContainer = document.getElementById("results-left");
 
   checkboxItems.addEventListener("change", function (event) {
     event.stopPropagation();
 
-    const showRecs = manualReviewContainer.getElementsByTagName("div");
+    const showRecs = siteAuditSection.getElementsByTagName("div");
 
     const isACheckbox = event.target.type === "checkbox";
 
@@ -19,21 +20,33 @@ export default function checkboxListener(checkboxContainer, container) {
         .getElementById(event.target.id)
         .cloneNode(true);
 
-      manualReviewContainer.append(tip);
+      siteAuditSection.append(tip);
 
-      window.scrollTo({
+      /* window.scrollTo({
         left: 0,
-        top: document.body.scrollHeight,
+        top: resultsContainer.scrollHeight,
         behavior: "smooth",
-      });
+      }); */
+
+      /* window.scrollTo(
+        0,
+        document.documentElement.scrollHeight || document.body.scrollHeight
+      ); */
     } else {
-      manualReviewContainer.querySelector(`#${event.target.id}`).remove();
+      siteAuditSection.querySelector(`#${event.target.id}`).remove();
     }
 
     if (showRecs.length === 0) {
-      manualReviewContainer.style.display = "none";
+      siteAuditSection.style.display = "none";
     } else {
-      manualReviewContainer.style.display = "block";
+      siteAuditSection.style.display = "block";
     }
+
+    siteAuditSection.scrollIntoView(false);
+    /* window.scrollTo({
+      left: 0,
+      top: resultsContainer.scrollHeight,
+      behavior: "smooth",
+    }); */
   });
 }
