@@ -6,14 +6,18 @@ export default function exportPdfListener() {
   exportButton.addEventListener("click", async function () {
     this.textContent = "Generating...";
     const pdf = await fetchPdf();
-    console.log(pdf);
-    this.href = pdf.FileUrl;
-    this.target = "_blank";
-    this.download = "Test file";
-    this.textContent = "Click to download";
-
-    // console.log(pdf.FileUrl);
+    downloadFile(pdf.FileUrl);
+    this.textContent = "Create new report";
   });
+}
 
-  return true;
+function downloadFile(url) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  // name of file
+  a.download = url.split("/").pop();
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }

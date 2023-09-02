@@ -36,8 +36,6 @@ export default async function fetchPsiData(website) {
       }
     });
 
-    fetchPdf();
-
     checkboxListener("manual-review-items", "manual-review");
     checkboxListener("screaming-frog-items", "screaming-frog");
     exportPdfListener();
