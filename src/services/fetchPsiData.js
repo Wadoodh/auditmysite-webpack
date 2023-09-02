@@ -35,10 +35,6 @@ export default async function fetchPsiData(website) {
         });
       }
     });
-
-    checkboxListener("manual-review-items", "manual-review");
-    checkboxListener("screaming-frog-items", "screaming-frog");
-    exportPdfListener();
   } else {
     const { data: desktopData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
@@ -71,12 +67,13 @@ export default async function fetchPsiData(website) {
         });
       }
     });
-
-    fetchPdf();
   }
 
   hideLoader();
-  scrollToBottomOfPage();
+
+  checkboxListener("manual-review-items", "manual-review");
+  checkboxListener("screaming-frog-items", "screaming-frog");
+  exportPdfListener();
 }
 
 function showLoader() {
