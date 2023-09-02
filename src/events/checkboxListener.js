@@ -18,6 +18,9 @@ export default function checkboxListener(checkboxContainer, container) {
       const tip = getWebflowTips()
         .getElementById(event.target.id)
         .cloneNode(true);
+
+      console.log(tip);
+
       manualReviewContainer.append(tip);
 
       window.scrollTo({
