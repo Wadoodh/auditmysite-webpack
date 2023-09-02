@@ -115,13 +115,8 @@ function listenToResultsContainer() {
 
 function scrollToBottomOfPage() {
   const scrollBtn = document.getElementById("scroll-button");
-  scrollBtn.addEventListener("click", () => {
-    window.scrollTo({
-      left: 0,
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
-  });
+
+  // scrollBtn.addEventListener("click", () => {});
 }
 
 /* async function pdfTest(htmlString) {

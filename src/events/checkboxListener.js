@@ -19,6 +19,12 @@ export default function checkboxListener(checkboxContainer, container) {
         .getElementById(event.target.id)
         .cloneNode(true);
       manualReviewContainer.append(tip);
+
+      window.scrollTo({
+        left: 0,
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
     } else {
       manualReviewContainer.querySelector(`#${event.target.id}`).remove();
     }
