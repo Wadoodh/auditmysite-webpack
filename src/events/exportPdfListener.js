@@ -29,6 +29,7 @@ async function downloadPDF(pdfFile) {
     link.click();
 
     // clean up
+    console.log("difference added...");
 
     window.URL.revokeObjectURL(url);
     document.body.removeChild(link);
