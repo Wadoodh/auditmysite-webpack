@@ -21,17 +21,6 @@ export default function checkboxListener(checkboxContainer, container) {
         .cloneNode(true);
 
       siteAuditSection.append(tip);
-
-      /* window.scrollTo({
-        left: 0,
-        top: resultsContainer.scrollHeight,
-        behavior: "smooth",
-      }); */
-
-      /* window.scrollTo(
-        0,
-        document.documentElement.scrollHeight || document.body.scrollHeight
-      ); */
     } else {
       siteAuditSection.querySelector(`#${event.target.id}`).remove();
     }
@@ -43,10 +32,22 @@ export default function checkboxListener(checkboxContainer, container) {
     }
 
     siteAuditSection.scrollIntoView(false);
-    /* window.scrollTo({
+  });
+}
+
+/* window.scrollTo({
       left: 0,
       top: resultsContainer.scrollHeight,
       behavior: "smooth",
     }); */
-  });
-}
+
+/* window.scrollTo({
+        left: 0,
+        top: resultsContainer.scrollHeight,
+        behavior: "smooth",
+      }); */
+
+/* window.scrollTo(
+        0,
+        document.documentElement.scrollHeight || document.body.scrollHeight
+      ); */
