@@ -1,6 +1,7 @@
 export default function googleDocInputListener() {
   const input = document.getElementById("google-doc-link");
   const textLink = document.getElementById("google-doc-file-link");
+  textLink.textContent = "";
   textLink.target = "_blank";
 
   input.addEventListener("input", (event) => {
@@ -12,3 +13,8 @@ export default function googleDocInputListener() {
       : (textLink.style.display = "block");
   });
 }
+
+/* 
+||
+    event.target.value === "Google doc placeholder"
+*/
