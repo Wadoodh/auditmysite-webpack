@@ -1,4 +1,4 @@
-import validateFormAndRender from "../client";
+import validateFormAndRender from "../client/validateFormAndRender";
 
 export default async function fetchHtmlPageForDev() {
   const res = await fetch("https://ent-site-audit.webflow.io/");

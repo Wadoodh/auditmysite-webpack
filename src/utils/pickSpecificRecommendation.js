@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from "uuid";
 import createTable from "../render/table/createTable";
+import { v4 as uuidv4 } from "uuid";
 import { getWebflowTips } from "../services/fetchWebflowTips";
 
 export default function pickSpecificRecommendation(audit) {
@@ -11,14 +11,27 @@ export default function pickSpecificRecommendation(audit) {
   } else {
     recommendation.setAttribute("data-id", uuidv4());
     recommendation.setAttribute("contenteditable", false);
-    // recommendation.setAttribute("id", audit.id);
-    recommendation
-      .querySelector("h3")
-      .setAttribute("id", audit.id + "-anchor-link");
     document.getElementById("results").append(recommendation);
     createTable(audit);
+    addSidebarLinks(audit);
   }
 }
+
+function addSidebarLinks(audit) {
+  const sidebar = document.getElementById("toc");
+  const textLink = document.createElement("a");
+  textLink.href = `#${audit.id}`;
+  textLink.classList.add("u-text-link");
+  textLink.textContent = audit.title;
+  sidebar.append(textLink);
+}
+
+// wf-form-Manual-Review
+// wf-form-Screaming-frog-form
+
+/* recommendation
+      .querySelector("h3")
+      .setAttribute("id", audit.id + "-anchor-link"); */
 
 /* ************************************************** */
 /* 

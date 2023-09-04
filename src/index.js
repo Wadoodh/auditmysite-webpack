@@ -1,5 +1,5 @@
 // COMMON **********
-import validateFormAndRender from "./client";
+import validateFormAndRender from "./client/validateFormAndRender";
 
 // DEV **********
 import fetchWebflowCssFile from "./utils/fetchWebflowCssFile";
@@ -21,6 +21,10 @@ async function inIt() {
   } else {
     // PRODUCTION CODE
     validateFormAndRender();
+
+    // disable sidebar forms
+    Webflow.push(() => $("manual-review-form").submit(() => false));
+    Webflow.push(() => $("screaming-frog-form").submit(() => false));
   }
 }
 

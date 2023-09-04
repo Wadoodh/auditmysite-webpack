@@ -6,7 +6,7 @@ import pickSpecificRecommendation from "../utils/pickSpecificRecommendation";
 import checkboxListener from "../events/checkboxListener";
 import exportPdfListener from "../events/exportPdfListener";
 import confirmExit from "../utils/organized/confirmExit";
-import tocbot from "tocbot";
+import googleDocInputListener from "../events/googleDocInputListener";
 
 // global variable
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
@@ -71,30 +71,11 @@ export default async function fetchPsiData(website) {
 
   hideLoader();
 
-  tableOfContents();
-  setTimeout(() => {
-    tocbot.refresh();
-  }, 3000);
-
   checkboxListener("manual-review-items", "manual-review");
   checkboxListener("screaming-frog-items", "screaming-frog");
   exportPdfListener();
+  googleDocInputListener();
   if (!IS_DEV_ENV) confirmExit();
-}
-
-function tableOfContents() {
-  tocbot.init({
-    // Where to render the table of contents.
-    tocSelector: "#toc",
-    // Where to grab the headings to build the table of contents.
-    contentSelector: ".results-left",
-    // Which headings to grab inside of the contentSelector element.
-    headingSelector: "h3",
-    activeLinkClass: "toc-active-link",
-    activeListItemClass: "active-audit",
-    // For headings inside relative or absolute positioned containers within content.
-    // hasInnerContainers: true,
-  });
 }
 
 function showLoader() {
