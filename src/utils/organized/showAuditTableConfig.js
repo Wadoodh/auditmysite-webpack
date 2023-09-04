@@ -4,7 +4,7 @@ export const showAuditTableConfig = {
   "third-party-facades": false,
   "bootup-time": false,
   "mainthread-work-breakdown": false,
-  "dom-size": false,
+  "dom-size": true,
   "duplicated-javascript": false,
   "legacy-javascript": false,
   viewport: false,

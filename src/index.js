@@ -8,8 +8,6 @@ import fetchHtmlPageForDev from "./services/fetchHtmlPageForDev";
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
 
-console.log(`Env is ${IS_DEV_ENV}`);
-
 async function inIt() {
   // load webflow recommendations to other modules can access data
   await fetchWebflowTips();

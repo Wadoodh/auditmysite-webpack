@@ -1,6 +1,7 @@
 import createTable from "../render/table/createTable";
 import { v4 as uuidv4 } from "uuid";
 import { getWebflowTips } from "../services/fetchWebflowTips";
+import { showAuditTableConfig } from "./organized/showAuditTableConfig";
 
 export default function pickSpecificRecommendation(audit) {
   const tips = getWebflowTips();
@@ -12,7 +13,7 @@ export default function pickSpecificRecommendation(audit) {
     recommendation.setAttribute("data-id", uuidv4());
     recommendation.setAttribute("contenteditable", false);
     document.getElementById("results").append(recommendation);
-    createTable(audit);
+    if (showAuditTableConfig[audit.id]) createTable(audit);
     addSidebarLinks(audit);
   }
 }
