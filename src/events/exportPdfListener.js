@@ -4,10 +4,13 @@ export default function exportPdfListener() {
   const exportButton = document.getElementById("export-report");
 
   exportButton.addEventListener("click", async function () {
+    if (this.classList.contains("cc-disabled")) return;
     this.textContent = "Generating...";
+    this.classList.add("cc-disabled");
     const pdf = await fetchPdf();
     downloadPDF(pdf.FileUrl);
     this.textContent = "Create new report";
+    this.classList.remove("cc-disabled");
   });
 }
 
@@ -29,8 +32,6 @@ async function downloadPDF(pdfFile) {
     link.click();
 
     // clean up
-    console.log("difference added...");
-
     window.URL.revokeObjectURL(url);
     document.body.removeChild(link);
   } catch (error) {

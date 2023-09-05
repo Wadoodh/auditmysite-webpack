@@ -1,31 +1,118 @@
 export const showAuditTableConfig = {
-  "long-tasks": false,
-  "third-party-summary": false,
-  "third-party-facades": false,
-  "bootup-time": false,
-  "mainthread-work-breakdown": false,
-  "dom-size": true,
-  "duplicated-javascript": false,
-  "legacy-javascript": false,
-  viewport: false,
-  "server-response-time": false,
-  "render-blocking-resources": false,
-  redirects: false,
-  "critical-request-chains": false,
-  "uses-text-compression": false,
-  "uses-rel-preconnect": false,
-  "uses-rel-preload": false,
-  "font-display": false,
-  "unminified-javascript": false,
-  "unminified-css": false,
-  "unused-css-rules": false,
-  "largest-contentful-paint-element": false,
-  "prioritize-lcp-image": false,
-  "unused-javascript": false,
-  "efficient-animated-content": false,
-  "total-byte-weight": false,
-  "lcp-lazy-loaded": false,
-  "layout-shift-elements": false,
-  "non-composited-animations": false,
-  "unsized-images": false,
+  "long-tasks": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "third-party-summary": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "third-party-facades": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "bootup-time": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "mainthread-work-breakdown": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "dom-size": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "duplicated-javascript": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "legacy-javascript": {
+    showItems: true,
+    showSubItems: false,
+  },
+  viewport: {
+    showItems: true,
+    showSubItems: false,
+  },
+  "server-response-time": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "render-blocking-resources": {
+    showItems: true,
+    showSubItems: false,
+  },
+  redirects: {
+    showItems: true,
+    showSubItems: false,
+  },
+  "critical-request-chains": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "uses-text-compression": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "uses-rel-preconnect": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "uses-rel-preload": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "font-display": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "unminified-javascript": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "unminified-css": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "unused-css-rules": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "largest-contentful-paint-element": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "prioritize-lcp-image": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "unused-javascript": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "efficient-animated-content": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "total-byte-weight": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "lcp-lazy-loaded": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "layout-shift-elements": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "non-composited-animations": {
+    showItems: true,
+    showSubItems: false,
+  },
+  "unsized-images": {
+    showItems: true,
+    showSubItems: false,
+  },
 };

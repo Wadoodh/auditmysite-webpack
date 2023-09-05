@@ -1,8 +1,8 @@
 export default function googleDocInputListener() {
   const input = document.getElementById("google-doc-link");
   const textLink = document.getElementById("google-doc-file-link");
+  textLink.style.display = "none";
   textLink.textContent = "";
-  textLink.target = "_blank";
 
   input.addEventListener("input", (event) => {
     textLink.textContent = event.target.value;

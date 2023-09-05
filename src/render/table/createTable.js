@@ -1,3 +1,4 @@
+import { showAuditTableConfig } from "../../utils/organized/showAuditTableConfig";
 import createTableHeader from "./createTableHeader";
 import formatTableCellData from "./formatTableCellData";
 
@@ -57,6 +58,8 @@ export default function createTable(currentAudit) {
       });
 
       if (rowData.hasOwnProperty("subItems")) {
+        if (!showAuditTableConfig[currentAudit.id].showSubItems) return;
+
         rowData.subItems.items.forEach((subRowData) => {
           let newRow = table.insertRow();
 

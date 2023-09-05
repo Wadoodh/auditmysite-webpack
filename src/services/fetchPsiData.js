@@ -88,7 +88,13 @@ function showLoader() {
 function hideLoader() {
   const loader = document.getElementById("loader");
   loader.style.display = "none";
+  hideSearchWrap();
   showResults();
+}
+
+function hideSearchWrap() {
+  const searchWrap = document.getElementById("form-wrap");
+  searchWrap.style.display = "none";
 }
 
 function showResults() {
