@@ -1,5 +1,5 @@
 export default function getHtmlForPdf() {
-  const results = document.getElementById("results");
+  const results = document.getElementById("results-left");
   let cssFile = document.querySelector(`link[rel="stylesheet"]`);
 
   return `
@@ -7,6 +7,7 @@ export default function getHtmlForPdf() {
       <head>
       <link rel="stylesheet" href="${cssFile.sheet.href}" />
       <style>
+
       .table-wrapper {
         margin-bottom: 40px;
       }

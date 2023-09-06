@@ -10,7 +10,7 @@ export default function pickSpecificRecommendation(audit) {
   if (!recommendation) {
     alert(`No audit found on the /Components page for ${audit.id}`);
   } else {
-    recommendation.setAttribute("data-id", uuidv4());
+    // recommendation.setAttribute("data-id", uuidv4());
     recommendation.setAttribute("contenteditable", false);
     document.getElementById("results").append(recommendation);
     if (showAuditTableConfig[audit.id]) createTable(audit);
