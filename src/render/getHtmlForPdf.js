@@ -1,10 +1,11 @@
 export default function getHtmlForPdf() {
   const results = document.getElementById("results");
+  let cssFile = document.querySelector(`link[rel="stylesheet"]`);
 
   return `
     <html style="color: green;">
       <head>
-      <link rel="stylesheet" href="https://assets.website-files.com/64e2d5a8afe3bbe1854303fe/css/ent-site-audit.webflow.76a140f64.css" />
+      <link rel="stylesheet" href="${cssFile.sheet.href}" />
       <style>
       .table-wrapper {
         margin-bottom: 40px;
