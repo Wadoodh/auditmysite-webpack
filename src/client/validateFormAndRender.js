@@ -67,5 +67,5 @@ function handleInputValidation(inputValue) {
 function showError(message) {
   const formError = document.getElementById("form-error");
   formError.textContent = message;
-  formError.classList.add("display-block");
+  formError.classList.add("u-d-block");
 }

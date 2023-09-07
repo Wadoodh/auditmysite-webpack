@@ -31,10 +31,3 @@ async function inIt() {
 }
 
 inIt();
-
-// instantiate func to fetch Webflow recommendations
-// get data and pass to css file
-
-/* const wfTips = webflowTips();
-    await wfTips.fetchData();
-    const wfTipsData = wfTips.getData(); */
