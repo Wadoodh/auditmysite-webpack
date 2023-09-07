@@ -3,6 +3,7 @@ import validateFormAndRender from "./client/validateFormAndRender";
 
 // DEV **********
 import fetchWebflowCssFile from "./utils/fetchWebflowCssFile";
+import fetchWebflowJsFile from "./services/fetchWebflowJsFile";
 import { fetchWebflowTips } from "./services/fetchWebflowTips";
 import fetchHtmlPageForDev from "./services/fetchHtmlPageForDev";
 
@@ -14,6 +15,9 @@ async function inIt() {
 
   if (IS_DEV_ENV) {
     fetchWebflowCssFile();
+    setTimeout(() => {
+      fetchWebflowJsFile();
+    }, 3000);
     // validateFormAndRender running in below function
     fetchHtmlPageForDev();
   } else {
@@ -21,8 +25,8 @@ async function inIt() {
     validateFormAndRender();
 
     // disable sidebar forms
-    Webflow.push(() => $("manual-review-form").submit(() => false));
-    Webflow.push(() => $("screaming-frog-form").submit(() => false));
+    Webflow.push(() => $("#manual-review-form").submit(() => false));
+    Webflow.push(() => $("#screaming-frog-form").submit(() => false));
   }
 }
 

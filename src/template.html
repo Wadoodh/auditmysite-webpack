@@ -75,6 +75,16 @@
       .result-block[contenteditable="true"] {
         background-color: #ddd;
       }
+
+      *:focus-visible[contenteditable="true"] {
+        background-color: #e8e8fc;
+        outline: 2px dashed #3545ee;
+        outline-offset: 1px;
+      }
+
+      *:not(:focus-visible):hover[contenteditable="true"] {
+        background-color: #f6f6fe;
+      }
     </style>
   </body>
 </html>

@@ -17,7 +17,7 @@ export default function validateFormAndRender() {
     });
   } else {
     Webflow.push(function () {
-      $("form").submit(function (event) {
+      $("#form").submit(function (event) {
         handleFormInput(event);
         return false;
       });
