@@ -81,8 +81,8 @@ export default async function fetchPsiData(website) {
 function showLoader() {
   const loader = document.getElementById("loader");
   const form = document.getElementById("form");
-  loader.style.display = "block";
   form.style.display = "none";
+  loader.style.display = "flex";
 }
 
 function hideLoader() {
