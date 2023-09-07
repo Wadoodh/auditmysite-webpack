@@ -1,4 +1,5 @@
 import fetchPdf from "../services/fetchPdf";
+import showToast from "../utils/organized/showToast";
 
 export default function exportPdfListener() {
   const exportButton = document.getElementById("export-report");
@@ -11,6 +12,7 @@ export default function exportPdfListener() {
     downloadPDF(pdf.FileUrl);
     this.textContent = "Create new report";
     this.classList.remove("cc-disabled");
+    showToast("PDF exported");
   });
 }
 

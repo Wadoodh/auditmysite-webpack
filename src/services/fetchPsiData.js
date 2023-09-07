@@ -7,6 +7,7 @@ import checkboxListener from "../events/checkboxListener";
 import exportPdfListener from "../events/exportPdfListener";
 import confirmExit from "../utils/organized/confirmExit";
 import googleDocInputListener from "../events/googleDocInputListener";
+import showToast from "../utils/organized/showToast";
 
 // global variable
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
@@ -15,6 +16,8 @@ export default async function fetchPsiData(website) {
   showLoader();
 
   if (IS_DEV_ENV) {
+    showToast("Getting Desktop data...");
+
     const { data: desktop } = await axios.get("http://localhost:4000/data");
     const { data: mobile } = await axios.get("http://localhost:4001/data");
 
@@ -36,10 +39,14 @@ export default async function fetchPsiData(website) {
       }
     });
   } else {
+    showToast("Getting Desktop data...");
+
     const { data: desktopData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
       { params: { website, strategy: "desktop" } }
     );
+
+    showToast("Getting mobile data...");
 
     const { data: mobileData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",

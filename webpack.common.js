@@ -17,6 +17,14 @@ module.exports = {
     clean: true,
     assetModuleFilename: "[name][ext]",
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
   /* plugins: [
     new HtmlWebpackPlugin({
       title: "Development",
