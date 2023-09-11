@@ -8,7 +8,10 @@ export default function pickSpecificRecommendation(audit) {
   const recommendation = tips.getElementById(audit.id);
 
   if (!recommendation) {
-    alert(`No audit found on the /Components page for ${audit.id}`);
+    console.log(`No audit found on the /Components page for ${audit.id}`);
+    document.getElementById("results").append(audit.id);
+    createTable(audit);
+    addSidebarLinks(audit);
   } else {
     // recommendation.setAttribute("data-id", uuidv4());
     recommendation.setAttribute("contenteditable", false);

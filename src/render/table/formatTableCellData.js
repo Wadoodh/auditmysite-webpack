@@ -31,7 +31,9 @@ export default function formatTableCellData(type, data) {
       }
       break;
     case "source-location":
-      formatted = `<a href="${data.location.url}" target="_blank">${data.location.url}</a>`;
+      formatted = `<a href="${
+        data?.location?.url || data.url
+      }" target="_blank">${data?.location?.url || data.url}</a>`;
       break;
     case "code":
       if (!data) break;

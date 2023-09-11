@@ -11,6 +11,11 @@ export default function getHtmlForPdf() {
       .table-wrapper {
         margin-bottom: 40px;
       }
+
+      .title {
+        font-size: 16px;
+        color: black;
+      }
   
       .styled-table {
         border-collapse: collapse;

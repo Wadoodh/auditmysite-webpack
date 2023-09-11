@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>PDF Export Test</title>
   </head>
   <body>
     <style>
@@ -88,3 +88,65 @@
     </style>
   </body>
 </html>
+
+<div class="header">
+  <div class="header-logo-wrap">
+    <img
+      src="https://assets.website-files.com/64e2d5a8afe3bbe1854303fe/64fa98fca5950e9841124cbc_webflow-logo-black.svg"
+      alt=""
+      class="header-logo"
+    />
+    <div class="header-text">Site Audit</div>
+  </div>
+  <div class="header-text">Date goes here</div>
+</div>
+
+<!-- 
+
+<div
+  class="header"
+  style="
+    font-size: 8px;
+    width: 100%;
+    height: 25px;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+  "
+>
+  <div
+    class="header"
+    style="
+      font-size: 8px;
+      width: 100%;
+      height: 25px;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 10px;
+      padding-right: 10px;
+      display: flex;
+    "
+  >
+    <div class="header-logo-wrap" style="align-items: center; display: flex">
+      <img
+        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIyLjEuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA4MDguMyAyMDMuMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgODA4LjMgMjAzLjM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPHBhdGggZD0iTTI2MSw3OS41YzAtMTQuNS0xNC4xLTI5LjktMzguNS0yOS45Yy0yNy40LDAtNTcuNSwyMC4xLTYyLjEsNjAuMmMtNC43LDQwLjUsMjAuNSw1OC41LDQ1LjksNTguNXMzOC43LTkuOSw1Mi4zLTIzLjEKCWMtMTEuNy0xNC43LTI2LjgtNy45LTI5LjctNi40Yy0zLjIsMS42LTcuMywzLjgtMTUuNywzLjhjLTkuOCwwLTE5LjgtNC40LTE5LjgtMjIuN0MyNTYuMiwxMTMuNywyNjEsOTQsMjYxLDc5LjV6IE0yMjkuOSw4MS45CgljLTAuNCw0LjUtMi4yLDEyLjItMzQsMTYuNWM2LjctMjMuOCwxOS41LTI1LjYsMjUuNC0yNS42QzIyNi44LDcyLjgsMjMwLjMsNzcuMSwyMjkuOSw4MS45eiBNMTIzLjUsODUuOGMwLDAtMTMuNSw0Mi40LTE0LjYsNDUuOQoJQzEwOC41LDEyOC4xLDk4LjYsNTIsOTguNiw1MmMtMjMsMC0zNS4zLDE2LjQtNDEuOCwzMy43YzAsMC0xNi40LDQyLjUtMTcuOCw0Ni4xYy0wLjEtMy4zLTIuNS00NS42LTIuNS00NS42CglDMzUuMSw2NSwxNS43LDUyLjEsMCw1Mi4xbDE5LDExNS4zYzI0LjEtMC4xLDM3LjEtMTYuNCw0My45LTMzLjdjMCwwLDE0LjUtMzcuNSwxNS4xLTM5LjJjMC4xLDEuNiwxMC40LDcyLjksMTAuNCw3Mi45CgljMjQuMiwwLDM3LjItMTUuMyw0NC4yLTMybDMzLjktODMuM0MxNDIuNiw1Mi4xLDEzMCw2OC40LDEyMy41LDg1Ljh6IE0zNDkuOCw0OS40Yy0xNC45LDAtMjYuMyw4LjEtMzUuOSwyMHYtMC4xTDMyMi41LDAKCWMtMTkuOCwwLTM1LjksMTcuMi0zOSw0Mi44bC0xNSwxMjMuN2MxMS40LDAsMjMuNS0zLjMsMzAtMTEuN2M1LjgsNy41LDE0LjUsMTMuNSwyNy40LDEzLjVjMzMuNCwwLDU2LjMtMzguOCw1Ni4zLTc1LjIKCUMzODIsNTkuOSwzNjUuOSw0OS40LDM0OS44LDQ5LjR6IE0zNDYuNywxMDguOWMtMy41LDIwLjMtMTQuOCwzNC4xLTI1LjcsMzQuMWMtMTEsMC0xNS43LTQuOS0xNS43LTQuOWMyLjEtMTcuOCwzLjQtMjguNyw3LjQtMzguMQoJYzQtOS40LDEzLjUtMjQuNCwyMy40LTI0LjRDMzQ1LjgsNzUuNiwzNTAuMiw4OC41LDM0Ni43LDEwOC45eiBNNDY1LjYsNTIuMWgtMjMuM2wwLjEtMS4yYzEuNi0xNS4yLDUuMi0yMy4yLDE3LjEtMjQuNQoJYzguMS0wLjgsMTEuNy01LDEyLjYtOS42YzAuNy0zLjYsMi45LTE2LjEsMi45LTE2LjFjLTQ2LjgtMC4zLTYxLjUsMTkuOS02NS4zLDUwLjdsLTAuMSwwLjdoLTAuNWMtNy42LDAtMTYsOC42LTE3LjQsMTkuNWwtMC41LDQKCWgxNS42bC0xMy4xLDEwOC4ybC00LDE5LjRjMC41LDAsMS4xLDAuMSwxLjYsMC4xYzIxLjktMC44LDM1LjktMTguMSwzOS00My4ybDEwLjItODQuNWg3LjNjNy4yLDAsMTUuNi03LjIsMTcuMS0xOS4yTDQ2NS42LDUyLjF6CgkgTTU4Ni44LDUwLjFjLTI2LjksMC01Mi4zLDE5LjgtNjAuMSw1MC45czQsNjcuOSw0My42LDY3LjljMzkuNSwwLDYyLjMtMzguMyw2Mi4zLTcwLjJDNjMyLjYsNjcsNjExLjEsNTAuMSw1ODYuOCw1MC4xegoJIE01OTcuNywxMDcuOWMtMS40LDE0LjEtNy42LDM1LjUtMjQuNiwzNS41Yy0xNy4xLDAtMTQuNy0yNS0xMy0zNi45YzEuOC0xMi43LDguOS0zMC44LDI0LjItMzAuOEM1OTgsNzUuNyw1OTkuMyw5Miw1OTcuNywxMDcuOXoKCSBNNzY1LjUsODUuOGMwLDAtMTMuNSw0Mi40LTE0LjYsNDUuOWMtMC40LTMuNi0xMC4zLTc5LjctMTAuMy03OS43Yy0yMywwLTM1LjMsMTYuNC00MS44LDMzLjdjMCwwLTE2LjQsNDIuNS0xNy44LDQ2LjEKCWMtMC4xLTMuMy0yLjUtNDUuNi0yLjUtNDUuNkM2NzcuMSw2NSw2NTcuNyw1Mi4xLDY0Miw1Mi4xbDE4LjksMTE1LjNjMjQuMS0wLjEsMzcuMS0xNi40LDQzLjktMzMuN2MwLDAsMTQuNS0zNy41LDE1LTM5LjIKCWMwLjIsMS42LDEwLjQsNzIuOSwxMC40LDcyLjljMjQuMiwwLDM3LjItMTUuMyw0NC4yLTMybDMzLjktODMuM0M3ODQuNSw1Mi4xLDc3MS45LDY4LjQsNzY1LjUsODUuOHogTTQ4Ny42LDAuN0w0NjgsMTU4LjhsMCwwCglsLTQsMTkuNWMwLjUsMCwxLjEsMC4xLDEuNiwwLjFsMCwwYzIxLjEtMC4zLDM2LjEtMTguOCwzOC45LTQyLjFsMTEuMy05MC43QzUxOS4yLDE3LjksNTAyLjcsMC43LDQ4Ny42LDAuN3oiLz4KPC9zdmc+Cg=="
+        class="header-logo"
+        style="width: 50px; margin-right: 2px"
+      />
+      <div class="header-text" style="line-height: 1; margin-top: 3px">
+        Site Audit
+      </div>
+    </div>
+    <div>
+      <span class="header-text" style="line-height: 1">
+        <span>${today.toLocaleDateString("en-US", options)}</span>
+      </span>
+      <span style="margin-left: 3px"
+        >Page: <span class="pageNumber"></span
+      ></span>
+    </div>
+  </div>
+</div>
+ -->

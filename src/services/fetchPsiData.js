@@ -16,7 +16,7 @@ export default async function fetchPsiData(website) {
   showLoader();
 
   if (IS_DEV_ENV) {
-    showToast("Getting Desktop data...");
+    showToast("Measuring Desktop site  ", "success");
 
     const { data: desktop } = await axios.get("http://localhost:4000/data");
     const { data: mobile } = await axios.get("http://localhost:4001/data");
@@ -39,14 +39,14 @@ export default async function fetchPsiData(website) {
       }
     });
   } else {
-    showToast("Getting Desktop data...");
+    showToast("Measuring Desktop site  ");
 
     const { data: desktopData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
       { params: { website, strategy: "desktop" } }
     );
 
-    showToast("Getting mobile data...");
+    showToast("Measuring Mobile site  ");
 
     const { data: mobileData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",

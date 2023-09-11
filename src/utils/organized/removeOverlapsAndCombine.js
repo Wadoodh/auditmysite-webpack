@@ -41,6 +41,7 @@ export default function removeOverlapsAndCombine(desktop, mobile) {
   // convert array to object with weight as the keys
   finalAudits.forEach((audit) => {
     const weight = audit.belongsToAuditCategory.weight;
+
     if (!objectAudits.hasOwnProperty(weight)) {
       objectAudits[weight] = [];
       objectAudits[weight].push(audit);
