@@ -86,6 +86,10 @@ export default function createTable(currentAudit) {
     types,
     isSubItem = false
   ) {
+    // don't create row if blocking time is 0 ms to only show impactful audits
+    // specifically for the audit "third-party-summary"
+    if (rowData?.blockingTime === 0) return;
+
     let cellToInsert = newRow.insertCell();
     if (isSubItem) cellToInsert.classList.add("sub-item");
     let cellInfo = formatTableCellData(

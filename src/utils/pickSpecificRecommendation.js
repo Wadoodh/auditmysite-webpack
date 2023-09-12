@@ -14,6 +14,11 @@ export default function pickSpecificRecommendation(audit) {
     addSidebarLinks(audit);
   } else {
     // recommendation.setAttribute("data-id", uuidv4());
+    if (audit.id === "dom-size") {
+      // number of elements on the page
+      console.log(audit.numericValue + " is the dom size");
+    }
+
     recommendation.setAttribute("contenteditable", false);
     document.getElementById("results").append(recommendation);
     if (showAuditTableConfig[audit.id]) createTable(audit);

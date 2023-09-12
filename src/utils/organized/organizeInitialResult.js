@@ -6,8 +6,6 @@ export default function organizeInitialResult(data) {
     },
   } = data;
 
-  console.log(audits);
-
   let standardAudits = []; // get all required audits
   let auditsWithNoWeight = {
     id: "audits-with-no-weight",
@@ -81,9 +79,8 @@ export default function organizeInitialResult(data) {
     audit.matchedAudits.sort((a, z) => a.score - z.score)
   );
 
-  // push audits with no weight
-  // console.log(auditsWithNoWeight);
-  standardAudits.push(auditsWithNoWeight);
+  // push audits with no weight to main result
+  // standardAudits.push(auditsWithNoWeight);
 
   return standardAudits;
 }
