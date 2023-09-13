@@ -6,6 +6,8 @@ import { showAuditTableConfig } from "./organized/showAuditTableConfig";
 export default function pickSpecificRecommendation(audit) {
   const tips = getWebflowTips();
   const recommendation = tips.getElementById(audit.id);
+  const auditWrapper = document.createElement("div");
+  auditWrapper.classList.add("audit-wrapper");
 
   if (!recommendation) {
     console.log(`No audit found on the /Components page for ${audit.id}`);
@@ -20,8 +22,12 @@ export default function pickSpecificRecommendation(audit) {
     }
 
     recommendation.setAttribute("contenteditable", false);
-    document.getElementById("results").append(recommendation);
-    if (showAuditTableConfig[audit.id]) createTable(audit);
+    // document.getElementById("results").append(recommendation);
+    auditWrapper.append(recommendation);
+    if (showAuditTableConfig[audit.id].showItems) {
+      auditWrapper.append(createTable(audit));
+    }
+    document.getElementById("results").append(auditWrapper);
     addSidebarLinks(audit);
   }
 }

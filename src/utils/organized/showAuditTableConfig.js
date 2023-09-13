@@ -20,7 +20,7 @@ export const showAuditTableConfig = {
     showSubItems: false,
   },
   "dom-size": {
-    showItems: true,
+    showItems: false,
     showSubItems: false,
   },
   "duplicated-javascript": {

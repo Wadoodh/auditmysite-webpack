@@ -117,6 +117,8 @@ export default function createTable(currentAudit) {
   const tableWrapper = document.createElement("div");
   tableWrapper.classList.add("table-wrapper");
 
+  return table;
+
   tableWrapper.append(table);
   resultsContainer.append(tableWrapper);
 }

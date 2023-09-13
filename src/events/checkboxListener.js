@@ -4,7 +4,8 @@ export default function checkboxListener(checkboxContainer, container) {
   const checkboxItems = document.getElementById(checkboxContainer);
   const siteAuditSection = document.getElementById(container);
   siteAuditSection.style.display = "none";
-  const resultsContainer = document.getElementById("results-left");
+  // const resultsContainer = document.getElementById("results-left");
+  const googleDocInput = document.getElementById("google-doc-link");
 
   checkboxItems.addEventListener("change", function (event) {
     event.stopPropagation();
@@ -25,15 +26,33 @@ export default function checkboxListener(checkboxContainer, container) {
       siteAuditSection.querySelector(`#${event.target.id}`).remove();
     }
 
-    if (showRecs.length === 0) {
+    if (showRecs.length === 0 && googleDocInput.value.length === 0) {
       siteAuditSection.style.display = "none";
     } else {
       siteAuditSection.style.display = "block";
     }
 
-    siteAuditSection.scrollIntoView(false);
+    siteAuditSection.scrollIntoView(true);
   });
 }
+
+// helper functions
+
+/*    setUpGoogleInputListener();
+
+    function setUpGoogleInputListener() {
+      googleDocInput.addEventListener("input", (event) => {
+        const value = event.target.value;
+
+        if (value.length === 0 && showRecs.length === 0) {
+          siteAuditSection.style.display = "none";
+        } else {
+          siteAuditSection.style.display = "block";
+        }
+
+        siteAuditSection.scrollIntoView(true);
+      });
+    } */
 
 /* window.scrollTo({
       left: 0,
