@@ -78,11 +78,19 @@ export default async function fetchPsiData(website) {
 
   hideLoader();
 
+  insertDomainTestedIntoAudit();
   checkboxListener("manual-review-items", "manual-review");
   checkboxListener("screaming-frog-items", "screaming-frog");
   exportPdfListener();
   googleDocInputListener();
   if (!IS_DEV_ENV) confirmExit();
+  document.body.style.backgroundColor = "#eef7ff";
+}
+
+function insertDomainTestedIntoAudit() {
+  const inputForWebsiteUrl = document.getElementById("website-url").value;
+  const domainToInsert = document.getElementById("domain");
+  domainToInsert.textContent = inputForWebsiteUrl;
 }
 
 function showLoader() {
