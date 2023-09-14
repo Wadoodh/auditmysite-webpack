@@ -32,7 +32,7 @@ export default function checkboxListener(checkboxContainer, container) {
       siteAuditSection.style.display = "block";
     }
 
-    siteAuditSection.scrollIntoView(true);
+    siteAuditSection.scrollIntoView(false);
   });
 }
 
