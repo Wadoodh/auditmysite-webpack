@@ -17,7 +17,8 @@ export default function exportPdfListener() {
 }
 
 async function downloadPDF(pdfFile) {
-  const filename = "temp name";
+  let filename = document.getElementById("website-url").value;
+  filename = filename.split(".").join("-");
 
   try {
     const response = await fetch(pdfFile);
@@ -27,7 +28,7 @@ async function downloadPDF(pdfFile) {
 
     const link = document.createElement("a");
     link.href = url;
-    link.download = filename;
+    link.download = `site-audit-for-${filename}`;
     link.style.display = "none";
     document.body.appendChild(link);
 
