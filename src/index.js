@@ -25,8 +25,9 @@ async function inIt() {
     validateFormAndRender();
 
     // disable sidebar forms
-    Webflow.push(() => $("#manual-review-form").submit(() => false));
+    Webflow.push(() => $("#project-settings-form").submit(() => false));
     Webflow.push(() => $("#screaming-frog-form").submit(() => false));
+    Webflow.push(() => $("#designer-form").submit(() => false));
   }
 }
 
