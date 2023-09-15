@@ -79,8 +79,11 @@ export default async function fetchPsiData(website) {
   hideLoader();
 
   insertDomainTestedIntoAudit();
-  checkboxListener("manual-review-items", "manual-review");
-  checkboxListener("screaming-frog-items", "screaming-frog");
+  // checkboxListener("manual-review-items", "manual-review");
+  checkboxListener("project-settings-form", "project-settings-container");
+  checkboxListener("designer-form", "designer-container");
+  checkboxListener("screaming-frog-form", "screaming-frog-container");
+  // screaming-frog-form
   exportPdfListener();
   googleDocInputListener();
   if (!IS_DEV_ENV) confirmExit();
