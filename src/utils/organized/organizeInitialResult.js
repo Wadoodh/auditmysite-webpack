@@ -3,6 +3,7 @@ export default function organizeInitialResult(data) {
     lighthouseResult: {
       audits,
       categories: { performance },
+      configSettings: { formFactor },
     },
   } = data;
 
@@ -26,6 +27,8 @@ export default function organizeInitialResult(data) {
   // i.e., TBT, LCP, CLS, FCP all carry a weight and contribute to the overall score
   // screenshot: https://share.cleanshot.com/Wgr2HZ0b
   // speed index has a weight of 10 but no relevant audits, there are already areas recommended to improve this area
+
+  addScore(formFactor, performance.score);
 
   performance.auditRefs.forEach((audit) => {
     if (audit.hasOwnProperty("relevantAudits") && audit.weight > 0) {
@@ -83,6 +86,12 @@ export default function organizeInitialResult(data) {
   // standardAudits.push(auditsWithNoWeight);
 
   return standardAudits;
+}
+
+function addScore(formFactor, score) {
+  document.getElementById(`score-${formFactor}`).textContent = (
+    score * 100
+  ).toFixed();
 }
 
 /* 

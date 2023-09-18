@@ -273,8 +273,8 @@
         },
         "runWarnings": [],
         "configSettings": {
-          "emulatedFormFactor": "mobile",
-          "formFactor": "mobile",
+          "emulatedFormFactor": "desktop",
+          "formFactor": "desktop",
           "locale": "en-US",
           "onlyCategories": ["performance"],
           "channel": "lr"

@@ -29,7 +29,7 @@ export default function checkboxListener(checkboxContainer, container) {
     if (showRecs.length === 0 && googleDocInput.value.length === 0) {
       siteAuditSection.style.display = "none";
     } else {
-      siteAuditSection.style.display = "block";
+      siteAuditSection.style.display = "grid";
     }
 
     siteAuditSection.scrollIntoView(false);
