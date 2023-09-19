@@ -28,7 +28,7 @@ async function downloadPDF(pdfFile) {
 
     const link = document.createElement("a");
     link.href = url;
-    link.download = `site-audit-for-${filename}`;
+    link.download = `webflow-site-audit-for-${filename}`;
     link.style.display = "none";
     document.body.appendChild(link);
 
