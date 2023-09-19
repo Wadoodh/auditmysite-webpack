@@ -15,6 +15,15 @@ export default function getHtmlForPdf() {
       }
       */
 
+      p {
+        font-size: 14px;
+      }
+
+      .results-section-title, .results-intro-title {
+        font-size: 24px;
+        line-height: 1.4;
+      }
+
       .results-title {
         font-size: 18px;
         line-height: 1.4;
@@ -26,7 +35,7 @@ export default function getHtmlForPdf() {
 
       .result-rte {
         font-size: 14px;
-        color: rgb(105,105,105);
+        /* color: rgb(105,105,105); */
       }
 
       .results-block {
