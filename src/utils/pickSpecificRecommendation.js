@@ -19,6 +19,8 @@ export default function pickSpecificRecommendation(audit) {
     if (audit.id === "dom-size") {
       // number of elements on the page
       console.log(audit.numericValue + " is the dom size");
+      recommendation.querySelector("#dom-size-number").textContent =
+        audit.numericValue;
     }
 
     recommendation.setAttribute("contenteditable", false);

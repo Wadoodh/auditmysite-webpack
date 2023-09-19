@@ -89,9 +89,29 @@ export default function organizeInitialResult(data) {
 }
 
 function addScore(formFactor, score) {
-  document.getElementById(`score-${formFactor}`).textContent = (
-    score * 100
-  ).toFixed();
+  // 0-49 - high priority
+  // 50-89 - med priority
+  // 90-100 - low priority, passing
+
+  // score-passed
+  // score-warning
+  // score-failed
+
+  let className = "";
+
+  if (score >= 0.0 && score <= 0.49) {
+    className = "score-failed";
+  } else if (score >= 0.5 && score <= 0.89) {
+    className = "score-warning";
+  } else if (score >= 0.9 && score <= 1.0) {
+    className = "score-passed";
+  }
+
+  const scoreElement = document.getElementById(`score-${formFactor}`);
+  scoreElement.textContent = (score * 100).toFixed() + "%";
+  scoreElement.parentNode.classList.add(className);
+
+  // document.getElementById(`score-${formFactor}`).textContent =
 }
 
 /* 

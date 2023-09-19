@@ -141,15 +141,3 @@ function scrollToBottomOfPage() {
 
   // scrollBtn.addEventListener("click", () => {});
 }
-
-/* async function pdfTest(htmlString) {
-  const { data } = await axios.post(
-    "https://dev--make-pdf--webflow-success.autocode.dev/",
-    { markup: htmlString }
-  );
-
-  console.log(data);
-  window.open(data.FileUrl, "_blank");
-} */
-
-// pdfTest();

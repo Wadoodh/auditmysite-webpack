@@ -23240,7 +23240,7 @@
           "performance": {
             "id": "performance",
             "title": "Performance",
-            "score": 0.37,
+            "score": 0.15,
             "auditRefs": [
               {
                 "id": "first-contentful-paint",
