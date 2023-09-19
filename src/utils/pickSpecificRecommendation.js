@@ -18,12 +18,16 @@ export default function pickSpecificRecommendation(audit) {
     // recommendation.setAttribute("data-id", uuidv4());
     if (audit.id === "dom-size") {
       // number of elements on the page
-      console.log(audit.numericValue + " is the dom size");
       recommendation.querySelector("#dom-size-number").textContent =
         audit.numericValue;
     }
 
-    recommendation.setAttribute("contenteditable", false);
+    // recommendation.setAttribute("contenteditable", false);
+
+    recommendation.querySelector("h3").setAttribute("contenteditable", true);
+    recommendation
+      .querySelector(".result-rte")
+      .setAttribute("contenteditable", true);
     // document.getElementById("results").append(recommendation);
     auditWrapper.append(recommendation);
     if (showAuditTableConfig[audit.id].showItems) {

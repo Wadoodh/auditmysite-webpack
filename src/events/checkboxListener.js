@@ -10,7 +10,8 @@ export default function checkboxListener(checkboxContainer, container) {
   checkboxItems.addEventListener("change", function (event) {
     event.stopPropagation();
 
-    const showRecs = siteAuditSection.getElementsByTagName("div");
+    // const showRecs = siteAuditSection.getElementsByTagName("div");
+    const showRecs = siteAuditSection.getElementsByClassName("result-block");
 
     const isACheckbox = event.target.type === "checkbox";
 
@@ -20,6 +21,9 @@ export default function checkboxListener(checkboxContainer, container) {
       const tip = getWebflowTips()
         .getElementById(event.target.id)
         .cloneNode(true);
+
+      tip.querySelector(".results-title").setAttribute("contenteditable", true);
+      tip.querySelector(".result-rte").setAttribute("contenteditable", true);
 
       siteAuditSection.append(tip);
     } else {
