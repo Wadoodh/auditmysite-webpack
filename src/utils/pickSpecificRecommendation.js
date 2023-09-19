@@ -22,13 +22,11 @@ export default function pickSpecificRecommendation(audit) {
         audit.numericValue;
     }
 
-    // recommendation.setAttribute("contenteditable", false);
-
-    recommendation.querySelector("h3").setAttribute("contenteditable", true);
+    /* recommendation.querySelector("h3").setAttribute("contenteditable", true);
     recommendation
       .querySelector(".result-rte")
-      .setAttribute("contenteditable", true);
-    // document.getElementById("results").append(recommendation);
+      .setAttribute("contenteditable", true); */
+
     auditWrapper.append(recommendation);
     if (showAuditTableConfig[audit.id].showItems) {
       auditWrapper.append(createTable(audit));

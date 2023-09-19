@@ -22,8 +22,8 @@ export default function checkboxListener(checkboxContainer, container) {
         .getElementById(event.target.id)
         .cloneNode(true);
 
-      tip.querySelector(".results-title").setAttribute("contenteditable", true);
-      tip.querySelector(".result-rte").setAttribute("contenteditable", true);
+      /* tip.querySelector(".results-title").setAttribute("contenteditable", true);
+      tip.querySelector(".result-rte").setAttribute("contenteditable", true); */
 
       siteAuditSection.append(tip);
     } else {
