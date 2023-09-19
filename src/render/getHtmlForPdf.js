@@ -29,8 +29,12 @@ export default function getHtmlForPdf() {
         color: rgb(105,105,105);
       }
 
+      .results-block {
+        page-break-before:always;
+      }
+
       .result-block {
-        margin-bottom: 0px;
+        margin-bottom: 0px;        
       }
 
       .audit-wrapper {
@@ -47,7 +51,8 @@ export default function getHtmlForPdf() {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.01);
         border: 1px solid rgb(0 0 0 / 35%);  
         */
-        font-size: 0.9rem;
+        font-size: 12px;
+        line-weight: 1.3;
         width: 100%;
               
       }
