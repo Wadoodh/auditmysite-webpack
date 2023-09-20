@@ -93,6 +93,7 @@ function addScore(formFactor, score) {
   // 50-89 - med priority
   // 90-100 - low priority, passing
 
+  // css classes
   // score-passed
   // score-warning
   // score-failed
@@ -110,8 +111,6 @@ function addScore(formFactor, score) {
   const scoreElement = document.getElementById(`score-${formFactor}`);
   scoreElement.textContent = (score * 100).toFixed() + "%";
   scoreElement.parentNode.classList.add(className);
-
-  // document.getElementById(`score-${formFactor}`).textContent =
 }
 
 /* 

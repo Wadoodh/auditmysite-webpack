@@ -6,6 +6,6 @@ export default async function fetchHtmlPageForDev() {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
   const pageWrap = doc.getElementById("page-wrap");
-  document.body.append(pageWrap);
+  document.body.prepend(pageWrap);
   validateFormAndRender();
 }

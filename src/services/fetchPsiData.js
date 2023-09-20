@@ -38,6 +38,8 @@ export default async function fetchPsiData(website) {
         });
       }
     });
+
+    tabChangeForDev();
   } else {
     showToast("Measuring Desktop site  ");
 
@@ -88,6 +90,25 @@ export default async function fetchPsiData(website) {
   googleDocInputListener();
   if (!IS_DEV_ENV) confirmExit();
   document.body.style.backgroundColor = "#eef7ff";
+}
+
+function tabChangeForDev() {
+  const tabLinks = document.querySelectorAll(".tabs-link");
+  const tabsContent = document.querySelector(".tabs-content");
+
+  tabLinks.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      if (event.target.localName !== "a") return;
+
+      const tabValue = event.target.attributes["data-w-tab"].value;
+      const allPanes = tabsContent.querySelectorAll(`[data-w-tab]`);
+      allPanes.forEach((pane) => pane.classList.remove("w--tab-active"));
+
+      tabsContent
+        .querySelector(`[data-w-tab="${tabValue}"]`)
+        .classList.add("w--tab-active");
+    });
+  });
 }
 
 function insertDomainTestedIntoAudit() {
