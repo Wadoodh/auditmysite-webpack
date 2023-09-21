@@ -42,7 +42,7 @@ async function downloadPDF(pdfFile) {
   }
 }
 
-function downloadFile(url) {
+/* function downloadFile(url) {
   const a = document.createElement("a");
   a.href = url;
   a.target = "_blank";
@@ -51,4 +51,4 @@ function downloadFile(url) {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-}
+} */

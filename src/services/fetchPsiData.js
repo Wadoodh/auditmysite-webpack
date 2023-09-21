@@ -98,9 +98,7 @@ function tabChangeForDev() {
 
   tabLinks.forEach((element) => {
     element.addEventListener("click", (event) => {
-      if (event.target.localName !== "a") return;
-
-      const tabValue = event.target.attributes["data-w-tab"].value;
+      const tabValue = event.currentTarget.attributes["data-w-tab"].value;
       const allPanes = tabsContent.querySelectorAll(`[data-w-tab]`);
       allPanes.forEach((pane) => pane.classList.remove("w--tab-active"));
 
