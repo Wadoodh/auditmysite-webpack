@@ -30,7 +30,7 @@ export default function checkboxListener(checkboxContainer, container) {
       siteAuditSection.querySelector(`#${event.target.id}`).remove();
     }
 
-    if (showRecs.length === 0 && googleDocInput.value.length === 0) {
+    if (showRecs.length === 0) {
       siteAuditSection.style.display = "none";
     } else {
       siteAuditSection.style.display = "grid";
@@ -39,6 +39,8 @@ export default function checkboxListener(checkboxContainer, container) {
     siteAuditSection.scrollIntoView(false);
   });
 }
+
+// && googleDocInput.value.length === 0
 
 // helper functions
 
