@@ -15,7 +15,7 @@ const IS_DEV_ENV = process.env.NODE_ENV === "development";
 export default async function fetchPsiData(website) {
   showLoader();
 
-  if (IS_DEV_ENV) {
+  if (!IS_DEV_ENV) {
     showToast("Measuring Desktop site  ", "success");
 
     const { data: desktop } = await axios.get("http://localhost:4000/data");
@@ -43,17 +43,27 @@ export default async function fetchPsiData(website) {
   } else {
     showToast("Measuring Desktop site  ");
 
-    const { data: desktopData } = await axios.get(
+    const [desktopData, desktopError] = await fetchData(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
-      { params: { website, strategy: "desktop" } }
+      { website, strategy: "desktop" }
     );
 
     showToast("Measuring Mobile site  ");
 
-    const { data: mobileData } = await axios.get(
+    const [mobileData, mobileError] = await fetchData(
+      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
+      { website, strategy: "mobile" }
+    );
+
+    /* const { data: desktopData } = await axios.get(
+      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
+      { params: { website, strategy: "desktop" } }
+    ); */
+
+    /* const { data: mobileData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
       { params: { website, strategy: "mobile" } }
-    );
+    ); */
 
     const { desktop } = desktopData;
     const { mobile } = mobileData;
@@ -90,6 +100,16 @@ export default async function fetchPsiData(website) {
   googleDocInputListener();
   if (!IS_DEV_ENV) confirmExit();
   document.body.style.backgroundColor = "#eef7ff";
+}
+
+async function fetchData(url, payload) {
+  try {
+    const { data } = await axios.get(url, { params: payload });
+    return [data, null];
+  } catch (error) {
+    console.error(error);
+    return [null, error];
+  }
 }
 
 function tabChangeForDev() {
