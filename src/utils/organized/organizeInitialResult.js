@@ -83,7 +83,7 @@ export default function organizeInitialResult(data) {
   );
 
   // push audits with no weight to main result
-  // standardAudits.push(auditsWithNoWeight);
+  standardAudits.push(auditsWithNoWeight);
 
   return standardAudits;
 }
