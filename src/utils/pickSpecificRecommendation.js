@@ -24,6 +24,7 @@ export default function pickSpecificRecommendation(audit) {
     }
 
     const heading = document.createElement("h3");
+    heading.classList.add("results-title");
     const paragraph = document.createElement("p");
     heading.textContent = audit.title;
     paragraph.textContent = audit.description;
