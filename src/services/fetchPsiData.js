@@ -15,7 +15,7 @@ const IS_DEV_ENV = process.env.NODE_ENV === "development";
 export default async function fetchPsiData(website) {
   showLoader();
 
-  if (!IS_DEV_ENV) {
+  if (IS_DEV_ENV) {
     showToast("Measuring Desktop site  ", "success");
 
     const { data: desktop } = await axios.get("http://localhost:4000/data");
