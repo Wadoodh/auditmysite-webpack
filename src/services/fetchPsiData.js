@@ -45,6 +45,7 @@ export default async function fetchPsiData(website) {
 
     const loaderDesktop = document.getElementById("loader-desktop");
     const loaderMobile = document.getElementById("loader-mobile");
+    const loaderFinished = document.getElementById("loader-finished");
 
     loaderDesktop.style.opacity = "100%";
 
@@ -95,10 +96,10 @@ export default async function fetchPsiData(website) {
     });
   }
 
+  loaderFinished.style.opacity = "100%";
+
   await new Promise((res, rej) => {
-    return setTimeout(() => {
-      const loaderFinished = document.getElementById("loader-finished");
-      loaderFinished.style.opacity = "100%";
+    setTimeout(() => {
       return res();
     }, 2000);
   });
