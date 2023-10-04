@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "dev": "webpack serve --config webpack.dev.js",
+    "dev": "concurrently --kill-others \"npm run start-webpack-dev\" \"npm run start-json-server-desktop\" \"npm run start-json-server-mobile\"",
+    "start-webpack-dev": "webpack serve --config webpack.dev.js",
+    "start-json-server-desktop": "npx json-server --watch db-desktop.json --port 4000",
+    "start-json-server-mobile": "npx json-server --watch db-mobile.json --port 4001",
     "start": "webpack serve --config webpack.config.js"
   },
   "repository": {
@@ -23,6 +26,7 @@
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.2",
+    "concurrently": "^8.2.1",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.3",

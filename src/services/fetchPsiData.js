@@ -41,14 +41,21 @@ export default async function fetchPsiData(website) {
 
     tabChangeForDev();
   } else {
-    showToast("Measuring Desktop site  ");
+    // showToast("Measuring Desktop site  ");
+
+    const loaderDesktop = document.getElementById("loader-desktop");
+    const loaderMobile = document.getElementById("loader-mobile");
+
+    loaderDesktop.style.opacity = "100%";
 
     const [desktopData, desktopError] = await fetchData(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
       { website, strategy: "desktop" }
     );
 
-    showToast("Measuring Mobile site  ");
+    loaderMobile.style.opacity = "100%";
+
+    // showToast("Measuring Mobile site  ");
 
     const [mobileData, mobileError] = await fetchData(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
@@ -87,6 +94,14 @@ export default async function fetchPsiData(website) {
       }
     });
   }
+
+  await new Promise((res, rej) => {
+    setTimeout(() => {
+      const loaderFinished = document.getElementById("loader-finished");
+      loaderFinished.style.opacity = "100%";
+      res();
+    }, 1500);
+  });
 
   hideLoader();
 
