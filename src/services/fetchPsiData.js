@@ -99,7 +99,7 @@ export default async function fetchPsiData(website) {
     setTimeout(() => {
       const loaderFinished = document.getElementById("loader-finished");
       loaderFinished.style.opacity = "100%";
-      res();
+      return res();
     }, 3000);
   });
 
