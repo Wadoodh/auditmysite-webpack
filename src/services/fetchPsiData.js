@@ -96,11 +96,11 @@ export default async function fetchPsiData(website) {
   }
 
   await new Promise((res, rej) => {
-    setTimeout(() => {
+    return setTimeout(() => {
       const loaderFinished = document.getElementById("loader-finished");
       loaderFinished.style.opacity = "100%";
       return res();
-    }, 3000);
+    }, 2000);
   });
 
   hideLoader();
