@@ -100,7 +100,7 @@ export default async function fetchPsiData(website) {
       const loaderFinished = document.getElementById("loader-finished");
       loaderFinished.style.opacity = "100%";
       res();
-    }, 1500);
+    }, 3000);
   });
 
   hideLoader();
