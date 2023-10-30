@@ -17,7 +17,7 @@ export default function showToast(message, type = "success") {
 
   const options = {
     text: message,
-    duration: 3000, // in ms
+    duration: 5000, // in ms
     close: true,
     gravity: "top", // `top` or `bottom`
     position: "center", // `left`, `center` or `right`

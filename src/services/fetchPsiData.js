@@ -45,22 +45,26 @@ export default async function fetchPsiData(website) {
 
     const loaderDesktop = document.getElementById("loader-desktop");
     const loaderMobile = document.getElementById("loader-mobile");
+    const pageSpeedDataApi =
+      "https://pb62yjznsllxruikx4e57rlf4u0bydzq.lambda-url.us-east-2.on.aws/";
 
     loaderDesktop.style.opacity = "100%";
 
-    const [desktopData, desktopError] = await fetchData(
-      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
-      { website, strategy: "desktop" }
-    );
+    showToast("Can take longer for larger sites ", "success");
+
+    const [desktopData, desktopError] = await fetchData(pageSpeedDataApi, {
+      website,
+      strategy: "desktop",
+    });
 
     loaderMobile.style.opacity = "100%";
 
     // showToast("Measuring Mobile site  ");
 
-    const [mobileData, mobileError] = await fetchData(
-      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
-      { website, strategy: "mobile" }
-    );
+    const [mobileData, mobileError] = await fetchData(pageSpeedDataApi, {
+      website,
+      strategy: "mobile",
+    });
 
     /* const { data: desktopData } = await axios.get(
       "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
