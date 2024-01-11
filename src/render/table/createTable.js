@@ -9,6 +9,8 @@ export default function createTable(currentAudit) {
 
   if (!currentAuditDetails) return;
 
+  if (currentAuditDetails.type === "debugdata") return;
+
   let headerKeys = [];
   let tableHead = [];
   let subItemHeadings = [];
