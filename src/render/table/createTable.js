@@ -15,23 +15,28 @@ export default function createTable(currentAudit) {
   let itemOrValueTypes = [];
   let subItemTypes = [];
 
-  currentAuditDetails.headings.forEach((head) => {
-    const headKey = head.key || head.url;
-    const tableHeadTitle = head.text || head.label || " ";
+  if (currentAuditDetails.hasOwnProperty("headings")) {
+    currentAuditDetails.headings.forEach((head) => {
+      const headKey = head.key || head.url;
+      const tableHeadTitle = head.text || head.label || " ";
 
-    headerKeys.push(headKey);
-    tableHead.push(tableHeadTitle);
-    subItemHeadings.push(head.subItemsHeading);
+      headerKeys.push(headKey);
+      tableHead.push(tableHeadTitle);
+      subItemHeadings.push(head.subItemsHeading);
 
-    if (
-      head.hasOwnProperty("subItemsHeading") &&
-      head.subItemsHeading.hasOwnProperty("itemType")
-    ) {
-      subItemTypes.push(head.subItemsHeading.itemType);
-    }
+      if (
+        head.hasOwnProperty("subItemsHeading") &&
+        head.subItemsHeading.hasOwnProperty("itemType")
+      ) {
+        subItemTypes.push(head.subItemsHeading.itemType);
+      }
 
-    itemOrValueTypes.push(head.itemType || head.valueType);
-  });
+      itemOrValueTypes.push(head.itemType || head.valueType);
+    });
+  } else {
+    // investigate further
+    // console.log(currentAuditDetails);
+  }
 
   // table element
   let table = document.createElement("table");
