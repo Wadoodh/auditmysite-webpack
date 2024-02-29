@@ -18,8 +18,8 @@ export default async function fetchPsiData(website) {
   if (IS_DEV_ENV) {
     showToast("Measuring Desktop site  ", "success");
 
-    const { data: desktop } = await axios.get("http://localhost:4000/data");
-    const { data: mobile } = await axios.get("http://localhost:4001/data");
+    const { data: desktop } = await axios.get("http://localhost:4123/data");
+    const { data: mobile } = await axios.get("http://localhost:4567/data");
 
     const desktopResults = organizeInitialResult(desktop[0].desktop);
     const mobileResults = organizeInitialResult(mobile[0].mobile);
