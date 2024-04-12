@@ -1,13 +1,12 @@
 export default function getHtmlForPdf() {
   const results = document.getElementById("results-left");
-  let cssFile = document.querySelector(`link[rel="stylesheet"]`);
+  const cssFile = document.querySelector(`link[rel="stylesheet"]`);
 
   return `
-    <html style="color: green;">
+    <html>
       <head>
       <link rel="stylesheet" href="${cssFile.sheet.href}" />
       <style>
-
       /*
       .title {
         font-size: 15px;

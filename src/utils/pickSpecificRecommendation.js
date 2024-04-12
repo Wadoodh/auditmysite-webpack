@@ -31,7 +31,8 @@ export default function pickSpecificRecommendation(audit) {
     auditWrapper.setAttribute("id", audit.id);
     auditWrapper.append(heading);
     auditWrapper.append(paragraph);
-    if (audit["details"]) auditWrapper.append(createTable(audit));
+    if (audit["details"] && audit.id !== "max-potential-fid")
+      auditWrapper.append(createTable(audit));
     document.getElementById("diagnostics-container").append(auditWrapper);
     addSidebarLinks(audit, "diagnostics");
   } else {
@@ -42,9 +43,11 @@ export default function pickSpecificRecommendation(audit) {
     }
 
     auditWrapper.append(recommendation);
+
     if (showAuditTableConfig[audit.id].showItems) {
       auditWrapper.append(createTable(audit));
     }
+
     document.getElementById("results").append(auditWrapper);
     addSidebarLinks(audit, "toc");
   }

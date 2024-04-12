@@ -1,21 +1,21 @@
-import axios from "axios";
 import getHtmlForPdf from "../render/getHtmlForPdf";
+import showToast from "../utils/organized/showToast";
 
 export default async function fetchPdf() {
   const html = getHtmlForPdf();
 
-  console.log(html);
+  try {
+    const response = await fetch(
+      "https://6zci2ewwouoxbt6mh2csp25zni0vymdp.lambda-url.us-east-2.on.aws/",
+      {
+        method: "POST",
+        body: JSON.stringify({ markup: html }),
+      }
+    );
 
-  // https://dev--make-pdf--webflow-success.autocode.dev/
-  // https://6zci2ewwouoxbt6mh2csp25zni0vymdp.lambda-url.us-east-2.on.aws/
-
-  const { data } = await axios.post(
-    "https://dev--make-pdf--webflow-success.autocode.dev/",
-    { markup: html }
-  );
-
-  return data;
+    const reportDetails = await response.json();
+    return reportDetails;
+  } catch (error) {
+    showToast("Error fetching pdf", "error");
+  }
 }
-
-/* exportButton.src = data.FileUrl;
-  exportButton.download = "Test file"; */
