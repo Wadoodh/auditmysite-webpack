@@ -41,9 +41,6 @@ export default async function fetchPsiData(website) {
 
     tabChangeForDev();
   } else {
-    // showToast("Measuring Desktop site   ");
-    // new comment...
-
     const loaderDesktop = document.getElementById("loader-desktop");
     const loaderMobile = document.getElementById("loader-mobile");
     const pageSpeedDataApi =
@@ -67,18 +64,18 @@ export default async function fetchPsiData(website) {
       strategy: "mobile",
     });
 
-    /* const { data: desktopData } = await axios.get(
-      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
-      { params: { website, strategy: "desktop" } }
-    ); */
-
-    /* const { data: mobileData } = await axios.get(
-      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
-      { params: { website, strategy: "mobile" } }
-    ); */
-
     const { desktop } = desktopData;
     const { mobile } = mobileData;
+
+    const domain = desktop.id.replace("https://", "").replace("/", "");
+    const desktopScore = (
+      desktop.lighthouseResult.categories.performance.score * 100
+    ).toFixed();
+    const mobileScore = (
+      mobile.lighthouseResult.categories.performance.score * 100
+    ).toFixed();
+
+    addToAnalytics(domain, desktopScore, mobileScore);
 
     const desktopResults = organizeInitialResult(desktop);
     const mobileResults = organizeInitialResult(mobile);
@@ -98,6 +95,26 @@ export default async function fetchPsiData(website) {
         });
       }
     });
+  }
+
+  async function addToAnalytics(domain, desktopScore, mobileScore) {
+    console.log(domain, desktopScore, mobileScore);
+
+    try {
+      await fetch(
+        "https://ebdeqjkdi63u6gzbb4eprrxf5u0pvlwn.lambda-url.us-east-2.on.aws/",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            website: domain,
+            desktopScore: parseInt(desktopScore),
+            mobileScore: parseInt(mobileScore),
+          }),
+        }
+      );
+    } catch (error) {
+      showToast("Error adding analytics data", "error");
+    }
   }
 
   const loaderFinished = document.getElementById("loader-finished");
@@ -201,3 +218,16 @@ function scrollToBottomOfPage() {
 
   // scrollBtn.addEventListener("click", () => {});
 }
+
+/* const { data: desktopData } = await axios.get(
+      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
+      { params: { website, strategy: "desktop" } }
+    ); */
+
+/* const { data: mobileData } = await axios.get(
+      "https://dev--desktop-psi-results--webflow-success.autocode.dev/",
+      { params: { website, strategy: "mobile" } }
+    ); */
+
+// showToast("Measuring Desktop site   ");
+// new comment...
