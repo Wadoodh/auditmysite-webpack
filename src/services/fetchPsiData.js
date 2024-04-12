@@ -98,8 +98,6 @@ export default async function fetchPsiData(website) {
   }
 
   async function addToAnalytics(domain, desktopScore, mobileScore) {
-    console.log(domain, desktopScore, mobileScore);
-
     try {
       await fetch(
         "https://ebdeqjkdi63u6gzbb4eprrxf5u0pvlwn.lambda-url.us-east-2.on.aws/",
